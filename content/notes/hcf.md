@@ -7,44 +7,40 @@ subtopic: HCF
 tags: factors, HCF, GCD, MIF-1A-Ch1
 ---
 
-The **H.C.F.** (also **G.C.D.**) of integers is the largest positive integer that divides all of them.
+The **HCF** (also called GCD) is the largest whole number that divides both numbers exactly.
 
-[[diagram:short-division-hcf|Demo style: HCF of 56 and 84 by short division]]
+[[diagram:short-division-hcf|HCF of 56 and 84 by short division]]
 
-## Formula / method table
+## Methods
 
 | Method | Rule |
 |--------|------|
-| Prime factors | For each **common** prime, take the **smallest** index |
+| Prime factors | For each common prime, take the smaller power |
 | Short division | Divide by common primes; multiply those divisors |
-| Relation with LCM | $\operatorname{HCF}(a,b)\times\operatorname{LCM}(a,b)=a\times b$ (two positives) |
+| With LCM | HCF(a, b) x LCM(a, b) = a x b |
 
-## Derivation of the prime-factor rule
+## Why the prime-factor rule works
 
-If
-
-$$a = 2^{x}3^{y}5^{z}\cdots,\qquad b = 2^{u}3^{v}5^{w}\cdots$$
-
-then any common factor can use at most the smaller power of each prime. The largest such factor is
-
-$$\operatorname{HCF}(a,b)=2^{\min(x,u)}3^{\min(y,v)}5^{\min(z,w)}\cdots$$
+If two numbers share a prime factor, the HCF can only use the smaller power of that prime. Then multiply those chosen primes together.
 
 ## Number examples
 
-### Example 1 — prime factorization
+### Example 1 — prime factors
 
-$$56 = 2^3\times 7,\qquad 84 = 2^2\times 3\times 7$$
+56 = 2^3 x 7  
+84 = 2^2 x 3 x 7
 
-| Prime | In $56$ | In $84$ | Take |
-|-------|---------|---------|------|
-| $2$ | $2^3$ | $2^2$ | $2^2$ |
-| $3$ | — | $3^1$ | — |
-| $7$ | $7^1$ | $7^1$ | $7^1$ |
+| Prime | In 56 | In 84 | Take |
+|-------|-------|-------|------|
+| 2 | 2^3 | 2^2 | 2^2 |
+| 3 | — | 3 | — |
+| 7 | 7 | 7 | 7 |
 
-$$\operatorname{HCF}(56,84)=2^2\times 7=28$$
+HCF = 2^2 x 7 = **28**
 
 ### Example 2 — check by listing
 
-Factors of $56$: $1,2,4,7,8,14,28,56$  
-Factors of $84$: $1,2,3,4,6,7,12,14,21,28,42,84$  
-Common factors end at $28$ → HCF $=28$.
+Factors of 56: 1, 2, 4, 7, 8, 14, 28, 56  
+Factors of 84: 1, 2, 3, 4, 6, 7, 12, 14, 21, 28, 42, 84  
+
+Largest common factor = **28**

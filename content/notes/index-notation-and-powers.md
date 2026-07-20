@@ -7,28 +7,27 @@ subtopic: Index Notation and Powers
 tags: powers, indices, MIF-1A-Ch1
 ---
 
-[[diagram:index-notation|Demo style: rewrite a repeated product in index form]]
+[[diagram:index-notation|Rewrite a repeated product in index form]]
 
-## Formula table
+## Rules
 
-| Idea | Formula |
+| Idea | Meaning |
 |------|---------|
-| Index notation | $a \times a \times \cdots \times a$ ($n$ times) $= a^n$ |
-| Base | $a$ in $a^n$ |
-| Index / power | $n$ in $a^n$ |
-| Evaluate | $a^n = a \times a \times \cdots \times a$ |
+| Index form | 6 x 6 x 6 x 6 = 6^4 |
+| Base | the number being multiplied (here 6) |
+| Index / power | how many times it is multiplied (here 4) |
 
-## Derivation / meaning
+## Why
 
-$$a^n$$ means multiply $a$ by itself $n$ times. So writing $6\times 6\times 6\times 6$ as $6^4$ is only a shorter notation — the value is unchanged.
+6^4 is just a shorter way to write 6 x 6 x 6 x 6. The value is the same.
 
 ## Number examples
 
 | Expression | Index form | Value |
 |------------|------------|-------|
-| $6\times 6\times 6\times 6$ | $6^4$ | $1296$ |
-| $3\times 3\times 3\times 4\times 4$ | $3^3\times 4^2$ | $27\times 16=432$ |
-| $5^3$ | — | $5\times 5\times 5=125$ |
-| $3\times 4^2$ | — | $3\times 16=48$ |
+| 6 x 6 x 6 x 6 | 6^4 | 1296 |
+| 3 x 3 x 3 x 4 x 4 | 3^3 x 4^2 | 27 x 16 = 432 |
+| 5^3 | — | 5 x 5 x 5 = 125 |
+| 3 x 4^2 | — | 3 x 16 = 48 |
 
-> Work out the power first, then multiply: $3\times 4^2 \neq (3\times 4)^2$.
+> Do the power first: 3 x 4^2 = 3 x 16 = 48, not (3 x 4)^2.

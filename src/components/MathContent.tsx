@@ -1,4 +1,6 @@
+import type { Components } from 'react-markdown'
 import ReactMarkdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
 import { Diagram } from './diagrams/Diagram'
@@ -6,6 +8,14 @@ import { Diagram } from './diagrams/Diagram'
 interface MathContentProps {
   content: string
   className?: string
+}
+
+const markdownComponents: Components = {
+  table: ({ children }) => (
+    <div className="table-scroll">
+      <table>{children}</table>
+    </div>
+  ),
 }
 
 /** Supports [[diagram:id]] or [[diagram:id|caption]] in markdown notes. */
@@ -18,7 +28,12 @@ export function MathContent({ content, className = '' }: MathContentProps) {
         if (index % 3 === 0) {
           if (!part.trim()) return null
           return (
-            <ReactMarkdown key={index} remarkPlugins={[remarkMath]} rehypePlugins={[rehypeKatex]}>
+            <ReactMarkdown
+              key={index}
+              remarkPlugins={[remarkGfm, remarkMath]}
+              rehypePlugins={[[rehypeKatex, { throwOnError: false, strict: 'ignore' }]]}
+              components={markdownComponents}
+            >
               {part}
             </ReactMarkdown>
           )

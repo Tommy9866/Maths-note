@@ -26,6 +26,8 @@ Prefer this structure:
 2. **Derivation** (short why / proof idea)  
 3. **Number examples** (worked values in a table)
 
+For **F1 notes**, keep table cells in plain text (`82.5 + 7.64`, `2 x 3`) — avoid `$...$` inside tables so they stay readable.
+
 Enrichment / beyond-syllabus facts use subtopic `Enrichment Facts`.
 
 ### Diagrams
