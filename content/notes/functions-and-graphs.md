@@ -1,9 +1,10 @@
 ---
-title: Function Notation and Graphs
-form: F4, F5
+title: Function Notation
+form: F4
 section: algebra-functions
 topic: Functions and Graphs
-tags: functions, graphs
+subtopic: Function Notation
+tags: functions
 ---
 
 A function $f$ maps each input $x$ in the domain to exactly one output $f(x)$.
@@ -15,5 +16,3 @@ A function $f$ maps each input $x$ in the domain to exactly one output $f(x)$.
 - Linear: $f(x) = mx + c$
 - Quadratic: $f(x) = ax^2 + bx + c$
 - Reciprocal: $f(x) = \frac{k}{x}$
-
-The graph of $y = f(x)$ is the set of points $(x, f(x))$.

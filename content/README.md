@@ -4,24 +4,24 @@ Markdown notes loaded by the site. Frontmatter:
 
 ```yaml
 ---
-title: Quadratic Formula
-form: F4, F5
-section: algebra-functions
-topic: Quadratic Equations in One Unknown (I)
-tags: polynomials, roots
+title: Percentage Change
+form: F1
+section: junior
+topic: Percentages
+subtopic: Percentage Change
+tags: foundation
 ---
 ```
 
-- `form`: one or more of F1–F6
+- `form`: one or more of F1–F6 (match the content level)
 - `section`: `algebra-functions` | `geometry` | `statistics` | `junior`
-- `topic`: exact DSE topic name from `src/taxonomy.ts`
+- `topic`: DSE topic name from `src/taxonomy.ts`
+- `subtopic`: smaller unit inside the topic (split by content, e.g. Percentage Change vs Simple Interest)
 
 ### Diagrams
-
-Insert a diagram aid in the body:
 
 ```markdown
 [[diagram:right-triangle|Optional caption]]
 ```
 
-Available ids: `right-triangle`, `parabola`, `straight-line`, `circle-area`, `cylinder`, `percentage-bar`, `function-curve`, `box-plot`
+Ids: `right-triangle`, `parabola`, `straight-line`, `circle-area`, `cylinder`, `percentage-bar`, `function-curve`, `box-plot`

@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { DSE_SECTIONS, FORMS, sectionLabel } from '../taxonomy'
+import { DSE_SECTIONS, FORMS, getSubtopicsForTopic, sectionLabel } from '../taxonomy'
 import type { FormLevel } from '../taxonomy'
 import { MathContent } from './MathContent'
 
@@ -44,7 +44,8 @@ export function DemoPage() {
             MathVault
           </h1>
           <p className="mt-5 max-w-lg text-lg leading-relaxed text-[#5b6b7c]">
-            A quiet place to browse and read mathematics — organised by form level and DSE topic.
+            A quiet place to browse and read mathematics — organised by form, DSE topic, and
+            smaller content units.
           </p>
           <div className="demo-cta-row mt-8">
             <Link
@@ -89,8 +90,11 @@ export function DemoPage() {
           <h2 className="font-display text-2xl font-semibold text-[#18212b]">
             Browse by DSE topics
           </h2>
-          <p className="mt-2 text-sm text-[#5b6b7c]">Group notes under the HKDSE syllabus map.</p>
-          <div className="mt-6 space-y-8">
+          <p className="mt-2 text-sm text-[#5b6b7c]">
+            Topics split into smaller units by content level — e.g. Percentage Change (F1) vs
+            Simple Interest (F3).
+          </p>
+          <div className="mt-6 space-y-10">
             {DSE_SECTIONS.map((section) => (
               <div key={section.id}>
                 <button
@@ -100,23 +104,48 @@ export function DemoPage() {
                 >
                   {sectionLabel(section)}
                 </button>
-                <ul className="mt-3 columns-1 gap-x-10 sm:columns-2">
-                  {section.topics.map((topic) => (
-                    <li key={topic} className="mb-2 break-inside-avoid">
-                      <button
-                        type="button"
-                        onClick={() =>
-                          navigate(
-                            `/app?group=dse&section=${section.id}&topic=${encodeURIComponent(topic)}`,
-                          )
-                        }
-                        className="text-left text-sm text-[#5b6b7c] transition hover:text-teal-800"
-                      >
-                        {topic}
-                      </button>
-                    </li>
-                  ))}
-                </ul>
+                <div className="mt-4 space-y-5">
+                  {section.topics.map((topic) => {
+                    const subtopics = getSubtopicsForTopic(topic)
+                    return (
+                      <div key={topic}>
+                        <button
+                          type="button"
+                          onClick={() =>
+                            navigate(
+                              `/app?group=dse&section=${section.id}&topic=${encodeURIComponent(topic)}`,
+                            )
+                          }
+                          className="text-left text-sm font-semibold text-[#18212b] transition hover:text-teal-800"
+                        >
+                          {topic}
+                        </button>
+                        {subtopics.length > 0 ? (
+                          <ul className="mt-2 flex flex-wrap gap-2">
+                            {subtopics.map((item) => (
+                              <li key={item.name}>
+                                <button
+                                  type="button"
+                                  onClick={() =>
+                                    navigate(
+                                      `/app?group=dse&section=${section.id}&topic=${encodeURIComponent(topic)}&subtopic=${encodeURIComponent(item.name)}`,
+                                    )
+                                  }
+                                  className="rounded-full border border-[#d7e3dd] bg-white/80 px-3 py-1 text-xs text-[#5b6b7c] transition hover:border-teal-300 hover:text-teal-800"
+                                >
+                                  {item.name}
+                                  <span className="ml-1 text-teal-700">
+                                    {item.typicalForms.join('/')}
+                                  </span>
+                                </button>
+                              </li>
+                            ))}
+                          </ul>
+                        ) : null}
+                      </div>
+                    )
+                  })}
+                </div>
               </div>
             ))}
           </div>

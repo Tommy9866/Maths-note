@@ -65,6 +65,38 @@ export function TopicBadge({ topic, onClick, active }: TopicBadgeProps) {
   return <span className={className}>{topic}</span>
 }
 
+interface SubtopicBadgeProps {
+  subtopic: string
+  onClick?: (subtopic: string) => void
+  active?: boolean
+}
+
+export function SubtopicBadge({ subtopic, onClick, active }: SubtopicBadgeProps) {
+  const className = `inline-flex max-w-full items-center truncate rounded-full px-2 py-0.5 text-xs font-medium ring-1 ring-inset transition ${
+    active
+      ? 'bg-amber-700 text-white ring-amber-700'
+      : 'bg-amber-50 text-amber-900 ring-amber-200 hover:bg-amber-100'
+  } ${onClick ? 'cursor-pointer' : ''}`
+
+  if (onClick) {
+    return (
+      <button
+        type="button"
+        className={className}
+        onClick={(e) => {
+          e.stopPropagation()
+          onClick(subtopic)
+        }}
+        title={`Show only “${subtopic}”`}
+      >
+        {subtopic}
+      </button>
+    )
+  }
+
+  return <span className={className}>{subtopic}</span>
+}
+
 export function SectionBadge({ sectionId }: { sectionId: string }) {
   const section = DSE_SECTIONS.find((item) => item.id === sectionId)
   if (!section) return null

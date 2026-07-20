@@ -1,6 +1,6 @@
 import type { FormLevel } from '../taxonomy'
 import type { MathEntry } from '../types'
-import { FormBadge, TopicBadge } from './TopicBadges'
+import { FormBadge, SubtopicBadge, TopicBadge } from './TopicBadges'
 
 interface EntryListProps {
   entries: MathEntry[]
@@ -8,8 +8,10 @@ interface EntryListProps {
   onSelect: (id: string) => void
   onFilterForm: (form: FormLevel) => void
   onFilterTopic: (topic: string) => void
+  onFilterSubtopic: (topic: string, subtopic: string) => void
   activeForm: FormLevel | 'All'
   activeTopic: string | 'All'
+  activeSubtopic: string | 'All'
 }
 
 export function EntryList({
@@ -18,8 +20,10 @@ export function EntryList({
   onSelect,
   onFilterForm,
   onFilterTopic,
+  onFilterSubtopic,
   activeForm,
   activeTopic,
+  activeSubtopic,
 }: EntryListProps) {
   if (entries.length === 0) {
     return (
@@ -29,7 +33,7 @@ export function EntryList({
         </div>
         <h3 className="font-display text-base font-semibold text-[#18212b]">No notes here</h3>
         <p className="mt-1 max-w-xs text-sm text-[#5b6b7c]">
-          Try another form, DSE topic, or clear the filter.
+          Try another form, topic, subtopic, or clear the filter.
         </p>
       </div>
     )
@@ -65,11 +69,18 @@ export function EntryList({
                   />
                 ))}
               </div>
-              <TopicBadge
-                topic={entry.dseTopic}
-                active={activeTopic === entry.dseTopic}
-                onClick={onFilterTopic}
-              />
+              <div className="flex flex-wrap gap-1.5">
+                <TopicBadge
+                  topic={entry.dseTopic}
+                  active={activeTopic === entry.dseTopic && activeSubtopic === 'All'}
+                  onClick={onFilterTopic}
+                />
+                <SubtopicBadge
+                  subtopic={entry.subtopic}
+                  active={activeSubtopic === entry.subtopic}
+                  onClick={(subtopic) => onFilterSubtopic(entry.dseTopic, subtopic)}
+                />
+              </div>
             </div>
           </li>
         )

@@ -1,19 +1,15 @@
 ---
-title: Measures of Dispersion
-form: F5, F6
+title: Range and Interquartile Range
+form: F5
 section: statistics
 topic: Measures of Dispersion
+subtopic: Range and IQR
 tags: statistics, spread
 ---
-
-Common measures of spread for a data set:
 
 [[diagram:box-plot|Box-and-whisker plot showing min, Q1, median, Q3, max]]
 
 - Range $= \text{max} - \text{min}$
 - Interquartile range $= Q_3 - Q_1$
-- Variance and standard deviation
 
-For a population with mean $\mu$:
-
-$$\sigma = \sqrt{\frac{1}{n}\sum_{i=1}^{n}(x_i - \mu)^2}$$
+IQR measures the spread of the middle $50\%$ of the data and is less affected by extreme values than the range.

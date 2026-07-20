@@ -42,6 +42,7 @@ function parseNote(path: string, raw: string): MathEntry | null {
     console.warn(`Unknown DSE topic "${dseTopic}" in ${path}`)
   }
 
+  const subtopic = (frontmatter.subtopic ?? title).trim()
   const tags = (frontmatter.tags ?? '')
     .split(',')
     .map((tag) => tag.trim())
@@ -59,6 +60,7 @@ function parseNote(path: string, raw: string): MathEntry | null {
     forms,
     dseSectionId,
     dseTopic: dseTopic || 'Other Typical Topics',
+    subtopic,
     tags,
   }
 }

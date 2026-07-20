@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { DSE_SECTIONS, FORMS, sectionLabel } from '../taxonomy'
+import { DSE_SECTIONS, FORMS, getSubtopicsForTopic, sectionLabel } from '../taxonomy'
 import type { FormLevel } from '../taxonomy'
 import type { BrowseMode } from '../types'
 
@@ -12,9 +12,12 @@ interface SidebarProps {
   onSelectSection: (sectionId: string | 'All') => void
   selectedTopic: string | 'All'
   onSelectTopic: (topic: string | 'All') => void
+  selectedSubtopic: string | 'All'
+  onSelectSubtopic: (subtopic: string | 'All') => void
   formCounts: Record<FormLevel | 'All', number>
   sectionCounts: Record<string, number>
   topicCounts: Record<string, number>
+  subtopicCounts: Record<string, number>
 }
 
 export function Sidebar({
@@ -26,11 +29,18 @@ export function Sidebar({
   onSelectSection,
   selectedTopic,
   onSelectTopic,
+  selectedSubtopic,
+  onSelectSubtopic,
   formCounts,
   sectionCounts,
   topicCounts,
+  subtopicCounts,
 }: SidebarProps) {
   const activeSection = DSE_SECTIONS.find((section) => section.id === selectedSectionId)
+  const subtopics =
+    selectedTopic !== 'All'
+      ? getSubtopicsForTopic(selectedTopic)
+      : []
 
   return (
     <aside className="flex h-full flex-col border-r border-[#d7e3dd] bg-white/85 backdrop-blur">
@@ -82,14 +92,14 @@ export function Sidebar({
               Form
             </p>
             <ul className="space-y-0.5">
-              <FormRow
+              <NavRow
                 label="All forms"
                 active={selectedForm === 'All'}
                 count={formCounts.All}
                 onClick={() => onSelectForm('All')}
               />
               {FORMS.map((form) => (
-                <FormRow
+                <NavRow
                   key={form}
                   label={form}
                   active={selectedForm === form}
@@ -105,25 +115,19 @@ export function Sidebar({
               DSE sections
             </p>
             <ul className="mb-4 space-y-0.5">
-              <FormRow
+              <NavRow
                 label="All sections"
                 active={selectedSectionId === 'All'}
                 count={sectionCounts.All ?? 0}
-                onClick={() => {
-                  onSelectSection('All')
-                  onSelectTopic('All')
-                }}
+                onClick={() => onSelectSection('All')}
               />
               {DSE_SECTIONS.map((section) => (
-                <FormRow
+                <NavRow
                   key={section.id}
                   label={sectionLabel(section)}
                   active={selectedSectionId === section.id}
                   count={sectionCounts[section.id] ?? 0}
-                  onClick={() => {
-                    onSelectSection(section.id)
-                    onSelectTopic('All')
-                  }}
+                  onClick={() => onSelectSection(section.id)}
                 />
               ))}
             </ul>
@@ -133,20 +137,45 @@ export function Sidebar({
                 <p className="mb-2 px-3 text-xs font-semibold tracking-wider text-[#5b6b7c] uppercase">
                   Topics
                 </p>
-                <ul className="space-y-0.5">
-                  <FormRow
+                <ul className="mb-4 space-y-0.5">
+                  <NavRow
                     label="All topics in section"
                     active={selectedTopic === 'All'}
                     count={sectionCounts[activeSection.id] ?? 0}
                     onClick={() => onSelectTopic('All')}
                   />
                   {activeSection.topics.map((topic) => (
-                    <FormRow
+                    <NavRow
                       key={topic}
                       label={topic}
                       active={selectedTopic === topic}
                       count={topicCounts[topic] ?? 0}
                       onClick={() => onSelectTopic(topic)}
+                    />
+                  ))}
+                </ul>
+              </>
+            )}
+
+            {selectedTopic !== 'All' && subtopics.length > 0 && (
+              <>
+                <p className="mb-2 px-3 text-xs font-semibold tracking-wider text-[#5b6b7c] uppercase">
+                  Subtopics
+                </p>
+                <ul className="space-y-0.5">
+                  <NavRow
+                    label="All subtopics"
+                    active={selectedSubtopic === 'All'}
+                    count={topicCounts[selectedTopic] ?? 0}
+                    onClick={() => onSelectSubtopic('All')}
+                  />
+                  {subtopics.map((item) => (
+                    <NavRow
+                      key={item.name}
+                      label={`${item.name} · ${item.typicalForms.join('/')}`}
+                      active={selectedSubtopic === item.name}
+                      count={subtopicCounts[item.name] ?? 0}
+                      onClick={() => onSelectSubtopic(item.name)}
                     />
                   ))}
                 </ul>
@@ -159,7 +188,7 @@ export function Sidebar({
   )
 }
 
-function FormRow({
+function NavRow({
   label,
   active,
   count,

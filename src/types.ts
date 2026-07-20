@@ -7,6 +7,7 @@ export interface MathEntry {
   forms: FormLevel[]
   dseSectionId: string
   dseTopic: string
+  subtopic: string
   tags: string[]
 }
 

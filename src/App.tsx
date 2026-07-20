@@ -6,7 +6,12 @@ import { EntryList } from './components/EntryList'
 import { SearchBar } from './components/SearchBar'
 import { Sidebar } from './components/Sidebar'
 import { filterEntries, useEntries } from './hooks/useEntries'
-import { DSE_SECTIONS, FORMS, findDseSectionByTopic, sectionLabel } from './taxonomy'
+import {
+  DSE_SECTIONS,
+  FORMS,
+  findDseSectionByTopic,
+  sectionLabel,
+} from './taxonomy'
 import type { FormLevel } from './taxonomy'
 import type { BrowseMode, ViewMode } from './types'
 
@@ -23,11 +28,14 @@ function App() {
   const selectedTopic = searchParams.get('topic')
     ? decodeURIComponent(searchParams.get('topic')!)
     : 'All'
+  const selectedSubtopic = searchParams.get('subtopic')
+    ? decodeURIComponent(searchParams.get('subtopic')!)
+    : 'All'
 
   useEffect(() => {
     setSelectedId(null)
     setViewMode('list')
-  }, [mode, selectedForm, selectedSectionId, selectedTopic, searchQuery])
+  }, [mode, selectedForm, selectedSectionId, selectedTopic, selectedSubtopic, searchQuery])
 
   const filteredEntries = useMemo(
     () =>
@@ -36,9 +44,10 @@ function App() {
         form: selectedForm,
         sectionId: selectedSectionId,
         topic: selectedTopic,
+        subtopic: selectedSubtopic,
         query: searchQuery,
       }),
-    [entries, mode, selectedForm, selectedSectionId, selectedTopic, searchQuery],
+    [entries, mode, selectedForm, selectedSectionId, selectedTopic, selectedSubtopic, searchQuery],
   )
 
   const selectedEntry = useMemo(
@@ -70,6 +79,15 @@ function App() {
     return result
   }, [entries])
 
+  const subtopicCounts = useMemo(() => {
+    const result: Record<string, number> = {}
+    for (const entry of entries) {
+      if (selectedTopic !== 'All' && entry.dseTopic !== selectedTopic) continue
+      result[entry.subtopic] = (result[entry.subtopic] ?? 0) + 1
+    }
+    return result
+  }, [entries, selectedTopic])
+
   const activeSection = DSE_SECTIONS.find((section) => section.id === selectedSectionId)
 
   const updateParams = (next: {
@@ -77,26 +95,33 @@ function App() {
     form?: FormLevel | 'All'
     section?: string
     topic?: string
+    subtopic?: string
   }) => {
     const params = new URLSearchParams()
     const group = next.group ?? mode
     params.set('group', group)
 
     if (group === 'form') {
-      const form = next.form ?? selectedForm
+      const form = next.form !== undefined ? next.form : selectedForm
       if (form !== 'All') params.set('form', form)
+      const topic = next.topic !== undefined ? next.topic : selectedTopic
+      const subtopic = next.subtopic !== undefined ? next.subtopic : selectedSubtopic
+      if (topic !== 'All') params.set('topic', topic)
+      if (subtopic !== 'All') params.set('subtopic', subtopic)
     } else {
-      const section = next.section ?? selectedSectionId
-      const topic = next.topic ?? selectedTopic
+      const section = next.section !== undefined ? next.section : selectedSectionId
+      const topic = next.topic !== undefined ? next.topic : selectedTopic
+      const subtopic = next.subtopic !== undefined ? next.subtopic : selectedSubtopic
       if (section !== 'All') params.set('section', section)
       if (topic !== 'All') params.set('topic', topic)
+      if (subtopic !== 'All') params.set('subtopic', subtopic)
     }
 
     setSearchParams(params)
   }
 
   const filterByForm = (form: FormLevel) => {
-    updateParams({ group: 'form', form })
+    updateParams({ group: 'form', form, topic: 'All', subtopic: 'All' })
   }
 
   const filterByTopic = (topic: string) => {
@@ -105,6 +130,17 @@ function App() {
       group: 'dse',
       section: section?.id ?? 'All',
       topic,
+      subtopic: 'All',
+    })
+  }
+
+  const filterBySubtopic = (topic: string, subtopic: string) => {
+    const section = findDseSectionByTopic(topic)
+    updateParams({
+      group: 'dse',
+      section: section?.id ?? 'All',
+      topic,
+      subtopic,
     })
   }
 
@@ -114,19 +150,28 @@ function App() {
 
   return (
     <div className="flex h-full">
-      <div className="hidden w-72 shrink-0 xl:block">
+      <div className="hidden w-80 shrink-0 xl:block">
         <Sidebar
           mode={mode}
-          onModeChange={(nextMode) => updateParams({ group: nextMode })}
+          onModeChange={(nextMode) =>
+            updateParams({ group: nextMode, topic: 'All', subtopic: 'All' })
+          }
           selectedForm={selectedForm}
-          onSelectForm={(form) => updateParams({ group: 'form', form })}
+          onSelectForm={(form) =>
+            updateParams({ group: 'form', form, topic: 'All', subtopic: 'All' })
+          }
           selectedSectionId={selectedSectionId}
-          onSelectSection={(section) => updateParams({ group: 'dse', section, topic: 'All' })}
+          onSelectSection={(section) =>
+            updateParams({ group: 'dse', section, topic: 'All', subtopic: 'All' })
+          }
           selectedTopic={selectedTopic}
-          onSelectTopic={(topic) => updateParams({ group: 'dse', topic })}
+          onSelectTopic={(topic) => updateParams({ group: 'dse', topic, subtopic: 'All' })}
+          selectedSubtopic={selectedSubtopic}
+          onSelectSubtopic={(subtopic) => updateParams({ group: 'dse', subtopic })}
           formCounts={formCounts}
           sectionCounts={sectionCounts}
           topicCounts={topicCounts}
+          subtopicCounts={subtopicCounts}
         />
       </div>
 
@@ -136,7 +181,7 @@ function App() {
             <div className="flex rounded-xl bg-[#eef5f2] p-1 xl:hidden">
               <button
                 type="button"
-                onClick={() => updateParams({ group: 'form' })}
+                onClick={() => updateParams({ group: 'form', topic: 'All', subtopic: 'All' })}
                 className={`rounded-lg px-3 py-1.5 text-sm font-medium ${
                   mode === 'form' ? 'bg-white text-teal-900 shadow-sm' : 'text-[#5b6b7c]'
                 }`}
@@ -145,7 +190,7 @@ function App() {
               </button>
               <button
                 type="button"
-                onClick={() => updateParams({ group: 'dse' })}
+                onClick={() => updateParams({ group: 'dse', topic: 'All', subtopic: 'All' })}
                 className={`rounded-lg px-3 py-1.5 text-sm font-medium ${
                   mode === 'dse' ? 'bg-white text-teal-900 shadow-sm' : 'text-[#5b6b7c]'
                 }`}
@@ -158,7 +203,12 @@ function App() {
               <select
                 value={selectedForm}
                 onChange={(e) =>
-                  updateParams({ group: 'form', form: e.target.value as FormLevel | 'All' })
+                  updateParams({
+                    group: 'form',
+                    form: e.target.value as FormLevel | 'All',
+                    topic: 'All',
+                    subtopic: 'All',
+                  })
                 }
                 className="rounded-xl border border-[#d7e3dd] bg-white px-3 py-2 text-sm text-[#18212b] outline-none xl:hidden"
               >
@@ -173,7 +223,12 @@ function App() {
               <select
                 value={selectedSectionId}
                 onChange={(e) =>
-                  updateParams({ group: 'dse', section: e.target.value, topic: 'All' })
+                  updateParams({
+                    group: 'dse',
+                    section: e.target.value,
+                    topic: 'All',
+                    subtopic: 'All',
+                  })
                 }
                 className="max-w-[14rem] rounded-xl border border-[#d7e3dd] bg-white px-3 py-2 text-sm text-[#18212b] outline-none xl:hidden"
               >
@@ -206,6 +261,7 @@ function App() {
             activeSection && selectedSectionId !== 'All' ? sectionLabel(activeSection) : undefined
           }
           topic={selectedTopic}
+          subtopic={selectedSubtopic}
           resultCount={filteredEntries.length}
           onClear={clearFilters}
         />
@@ -225,8 +281,10 @@ function App() {
               }}
               onFilterForm={filterByForm}
               onFilterTopic={filterByTopic}
+              onFilterSubtopic={filterBySubtopic}
               activeForm={selectedForm}
               activeTopic={selectedTopic}
+              activeSubtopic={selectedSubtopic}
             />
           </section>
 
@@ -236,11 +294,13 @@ function App() {
                 entry={selectedEntry}
                 onFilterForm={filterByForm}
                 onFilterTopic={filterByTopic}
+                onFilterSubtopic={filterBySubtopic}
                 activeForm={selectedForm}
                 activeTopic={selectedTopic}
+                activeSubtopic={selectedSubtopic}
               />
             ) : (
-              <EmptyState count={filteredEntries.length} mode={mode} />
+              <EmptyState count={filteredEntries.length} />
             )}
           </main>
         </div>
@@ -249,7 +309,7 @@ function App() {
   )
 }
 
-function EmptyState({ count, mode }: { count: number; mode: BrowseMode }) {
+function EmptyState({ count }: { count: number }) {
   return (
     <div className="flex h-full flex-col items-center justify-center px-8 py-16 text-center">
       <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-teal-50 font-display text-4xl text-teal-700 ring-1 ring-teal-100">
@@ -260,10 +320,8 @@ function EmptyState({ count, mode }: { count: number; mode: BrowseMode }) {
       </h2>
       <p className="mt-2 max-w-md text-sm leading-relaxed text-[#5b6b7c]">
         {count > 0
-          ? 'Pick a note, or click a form / topic tag to narrow the list.'
-          : mode === 'form'
-            ? 'No notes for this form. Clear the filter or pick another form.'
-            : 'No notes for this topic. Clear the filter or pick another topic.'}
+          ? 'Pick a note, or click a form / topic / subtopic tag to narrow the list.'
+          : 'Try another form, topic, or subtopic — or clear the filter.'}
       </p>
     </div>
   )

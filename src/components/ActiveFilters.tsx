@@ -6,6 +6,7 @@ interface ActiveFiltersProps {
   form: FormLevel | 'All'
   sectionLabel?: string
   topic: string | 'All'
+  subtopic: string | 'All'
   resultCount: number
   onClear: () => void
 }
@@ -15,15 +16,15 @@ export function ActiveFilters({
   form,
   sectionLabel,
   topic,
+  subtopic,
   resultCount,
   onClear,
 }: ActiveFiltersProps) {
   const chips: string[] = []
   if (mode === 'form' && form !== 'All') chips.push(form)
-  if (mode === 'dse') {
-    if (sectionLabel) chips.push(sectionLabel)
-    if (topic !== 'All') chips.push(topic)
-  }
+  if (mode === 'dse' && sectionLabel) chips.push(sectionLabel)
+  if (topic !== 'All') chips.push(topic)
+  if (subtopic !== 'All') chips.push(subtopic)
 
   if (chips.length === 0) return null
 

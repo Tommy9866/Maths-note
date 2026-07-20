@@ -14,6 +14,7 @@ export interface NoteFilters {
   form: FormLevel | 'All'
   sectionId: string | 'All'
   topic: string | 'All'
+  subtopic: string | 'All'
   query: string
 }
 
@@ -23,9 +24,12 @@ export function filterEntries(entries: MathEntry[], filters: NoteFilters): MathE
   return entries.filter((entry) => {
     if (filters.mode === 'form') {
       if (filters.form !== 'All' && !entry.forms.includes(filters.form)) return false
+      if (filters.topic !== 'All' && entry.dseTopic !== filters.topic) return false
+      if (filters.subtopic !== 'All' && entry.subtopic !== filters.subtopic) return false
     } else {
       if (filters.sectionId !== 'All' && entry.dseSectionId !== filters.sectionId) return false
       if (filters.topic !== 'All' && entry.dseTopic !== filters.topic) return false
+      if (filters.subtopic !== 'All' && entry.subtopic !== filters.subtopic) return false
     }
 
     if (!normalizedQuery) return true
@@ -33,6 +37,7 @@ export function filterEntries(entries: MathEntry[], filters: NoteFilters): MathE
       entry.title,
       entry.content,
       entry.dseTopic,
+      entry.subtopic,
       ...entry.forms,
       ...entry.tags,
     ]

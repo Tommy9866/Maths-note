@@ -1,8 +1,9 @@
 ---
 title: Trigonometric Ratios
-form: F4, F5
+form: F4
 section: geometry
 topic: Trigonometry (I)
+subtopic: Trigonometric Ratios
 tags: trig, triangles
 ---
 
