@@ -1,22 +1,19 @@
-import { useMemo, useRef, useState } from 'react'
+import { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { filterEntries, useEntries } from './hooks/useEntries'
-import { exportEntries, importEntries } from './storage'
 import { CATEGORIES } from './types'
 import type { Category, ViewMode } from './types'
 import { EntryDetail } from './components/EntryDetail'
-import { EntryForm } from './components/EntryForm'
 import { EntryList } from './components/EntryList'
 import { SearchBar } from './components/SearchBar'
 import { Sidebar } from './components/Sidebar'
 
 function App() {
-  const { entries, addEntry, updateEntry, deleteEntry, replaceAll } = useEntries()
+  const { entries } = useEntries()
   const [viewMode, setViewMode] = useState<ViewMode>('list')
   const [selectedId, setSelectedId] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState('')
   const [selectedCategory, setSelectedCategory] = useState<Category | 'All'>('All')
-  const fileInputRef = useRef<HTMLInputElement>(null)
 
   const filteredEntries = useMemo(
     () => filterEntries(entries, searchQuery, selectedCategory),
@@ -41,63 +38,6 @@ function App() {
     setViewMode('view')
   }
 
-  const handleCreate = () => {
-    setSelectedId(null)
-    setViewMode('create')
-  }
-
-  const handleEdit = () => {
-    setViewMode('edit')
-  }
-
-  const handleDelete = () => {
-    if (!selectedEntry) return
-    if (window.confirm(`Delete "${selectedEntry.title}"? This cannot be undone.`)) {
-      deleteEntry(selectedEntry.id)
-      setSelectedId(null)
-      setViewMode('list')
-    }
-  }
-
-  const handleSaveNew = (data: {
-    title: string
-    content: string
-    category: Category
-    tags: string[]
-  }) => {
-    const created = addEntry(data)
-    setSelectedId(created.id)
-    setViewMode('view')
-  }
-
-  const handleSaveEdit = (data: {
-    title: string
-    content: string
-    category: Category
-    tags: string[]
-  }) => {
-    if (!selectedEntry) return
-    updateEntry(selectedEntry.id, data)
-    setViewMode('view')
-  }
-
-  const handleImport = async (file: File) => {
-    try {
-      const imported = await importEntries(file)
-      if (
-        entries.length > 0 &&
-        !window.confirm('Import will replace all current notes. Continue?')
-      ) {
-        return
-      }
-      replaceAll(imported)
-      setSelectedId(null)
-      setViewMode('list')
-    } catch {
-      window.alert('Could not import file. Please check the JSON format.')
-    }
-  }
-
   return (
     <div className="flex h-full">
       <div className="hidden w-64 shrink-0 lg:block">
@@ -109,13 +49,13 @@ function App() {
       </div>
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="flex flex-wrap items-center gap-3 border-b border-white/8 bg-[#13161f]/80 px-5 py-4 backdrop-blur">
+        <header className="flex flex-wrap items-center gap-3 border-b border-[#d7e3dd] bg-white/70 px-5 py-4 backdrop-blur">
           <div className="flex min-w-0 flex-1 items-center gap-3">
             <div className="lg:hidden">
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value as Category | 'All')}
-                className="rounded-lg border border-white/10 bg-[#1a1d27] px-3 py-2 text-sm text-white outline-none"
+                className="rounded-xl border border-[#d7e3dd] bg-white px-3 py-2 text-sm text-[#18212b] outline-none"
               >
                 <option value="All">All topics</option>
                 {CATEGORIES.map((category) => (
@@ -133,51 +73,24 @@ function App() {
           <div className="flex shrink-0 items-center gap-2">
             <Link
               to="/"
-              className="rounded-lg border border-white/10 px-3 py-2 text-sm text-slate-400 transition hover:bg-white/5 hover:text-slate-200"
-              title="Back to demo page"
+              className="rounded-xl border border-[#d7e3dd] bg-white px-3 py-2 text-sm text-[#5b6b7c] transition hover:border-teal-300 hover:text-[#18212b]"
             >
-              Demo
+              Home
             </Link>
-            <button
-              type="button"
-              onClick={() => exportEntries(entries)}
-              className="rounded-lg border border-white/10 px-3 py-2 text-sm text-slate-400 transition hover:bg-white/5 hover:text-slate-200"
-              title="Export backup"
+            <a
+              href="https://github.com/Tommy9866/Maths-note/blob/cursor/maths-knowledge-website-3425/content/README.md"
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-xl bg-teal-700 px-4 py-2 text-sm font-semibold text-white transition hover:bg-teal-600"
             >
-              Export
-            </button>
-            <button
-              type="button"
-              onClick={() => fileInputRef.current?.click()}
-              className="rounded-lg border border-white/10 px-3 py-2 text-sm text-slate-400 transition hover:bg-white/5 hover:text-slate-200"
-              title="Import backup"
-            >
-              Import
-            </button>
-            <input
-              ref={fileInputRef}
-              type="file"
-              accept="application/json,.json"
-              className="hidden"
-              onChange={(e) => {
-                const file = e.target.files?.[0]
-                if (file) void handleImport(file)
-                e.target.value = ''
-              }}
-            />
-            <button
-              type="button"
-              onClick={handleCreate}
-              className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white transition hover:bg-indigo-500"
-            >
-              + New note
-            </button>
+              Add with Cursor
+            </a>
           </div>
         </header>
 
         <div className="flex min-h-0 flex-1">
           <section
-            className={`w-full shrink-0 overflow-y-auto border-r border-white/8 bg-[#0f1117] md:w-80 lg:w-96 ${
+            className={`w-full shrink-0 overflow-y-auto border-r border-[#d7e3dd] bg-white/40 md:w-80 lg:w-96 ${
               viewMode !== 'list' && selectedEntry ? 'hidden md:block' : ''
             }`}
           >
@@ -188,29 +101,11 @@ function App() {
             />
           </section>
 
-          <main className="min-w-0 flex-1 overflow-y-auto bg-[#0f1117]">
-            {viewMode === 'create' && (
-              <EntryForm onSave={handleSaveNew} onCancel={() => setViewMode('list')} />
-            )}
-
-            {viewMode === 'edit' && selectedEntry && (
-              <EntryForm
-                initial={selectedEntry}
-                onSave={handleSaveEdit}
-                onCancel={() => setViewMode('view')}
-              />
-            )}
-
-            {viewMode === 'view' && selectedEntry && (
-              <EntryDetail entry={selectedEntry} onEdit={handleEdit} onDelete={handleDelete} />
-            )}
-
-            {viewMode === 'list' && !selectedEntry && (
-              <EmptyState onCreate={handleCreate} hasEntries={entries.length > 0} />
-            )}
-
-            {viewMode === 'view' && !selectedEntry && (
-              <EmptyState onCreate={handleCreate} hasEntries={entries.length > 0} />
+          <main className="min-w-0 flex-1 overflow-y-auto">
+            {viewMode === 'view' && selectedEntry ? (
+              <EntryDetail entry={selectedEntry} />
+            ) : (
+              <EmptyState noteCount={entries.length} />
             )}
           </main>
         </div>
@@ -219,33 +114,20 @@ function App() {
   )
 }
 
-function EmptyState({
-  onCreate,
-  hasEntries,
-}: {
-  onCreate: () => void
-  hasEntries: boolean
-}) {
+function EmptyState({ noteCount }: { noteCount: number }) {
   return (
     <div className="flex h-full flex-col items-center justify-center px-8 py-16 text-center">
-      <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-gradient-to-br from-indigo-600/20 to-violet-600/20 text-4xl ring-1 ring-indigo-500/20">
+      <div className="mb-6 flex h-20 w-20 items-center justify-center rounded-3xl bg-teal-50 font-display text-4xl text-teal-700 ring-1 ring-teal-100">
         ∫
       </div>
-      <h2 className="text-xl font-semibold text-white">
-        {hasEntries ? 'Select a note' : 'Start building your maths library'}
+      <h2 className="font-display text-2xl font-semibold text-[#18212b]">
+        {noteCount > 0 ? 'Select a note' : 'Your library is empty'}
       </h2>
-      <p className="mt-2 max-w-md text-sm leading-relaxed text-slate-500">
-        {hasEntries
-          ? 'Choose a note from the list to read it, or create a new one.'
-          : 'Capture theorems, formulas, proofs, and problem-solving techniques — all with beautiful LaTeX rendering.'}
+      <p className="mt-2 max-w-md text-sm leading-relaxed text-[#5b6b7c]">
+        {noteCount > 0
+          ? 'Choose a note from the list, or ask Cursor to add a new Markdown file in content/notes/.'
+          : 'Ask Cursor to create a note in content/notes/ — then rebuild or redeploy to see it here.'}
       </p>
-      <button
-        type="button"
-        onClick={onCreate}
-        className="mt-6 rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-medium text-white transition hover:bg-indigo-500"
-      >
-        Create your first note
-      </button>
     </div>
   )
 }

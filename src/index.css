@@ -2,8 +2,16 @@
 @import 'katex/dist/katex.min.css';
 
 @theme {
-  --font-sans: 'Inter', system-ui, sans-serif;
+  --font-sans: 'Figtree', ui-sans-serif, sans-serif;
+  --font-display: 'Fraunces', ui-serif, Georgia, serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --color-ink: #18212b;
+  --color-muted: #5b6b7c;
+  --color-accent: #0f766e;
+  --color-accent-soft: #ccfbf1;
+  --color-surface: #f7faf8;
+  --color-panel: #ffffff;
+  --color-line: #d7e3dd;
 }
 
 * {
@@ -19,13 +27,20 @@ body,
 body {
   margin: 0;
   font-family: var(--font-sans);
-  background: #0f1117;
-  color: #e2e8f0;
+  color: var(--color-ink);
+  background:
+    radial-gradient(ellipse 90% 70% at 0% 0%, rgba(15, 118, 110, 0.1), transparent 55%),
+    radial-gradient(ellipse 70% 50% at 100% 0%, rgba(14, 165, 233, 0.08), transparent 50%),
+    linear-gradient(180deg, #eef5f2 0%, var(--color-surface) 40%, #f3f6f8 100%);
   -webkit-font-smoothing: antialiased;
 }
 
 ::selection {
-  background: rgba(99, 102, 241, 0.35);
+  background: rgba(15, 118, 110, 0.22);
+}
+
+.font-display {
+  font-family: var(--font-display);
 }
 
 .katex-display {
@@ -33,21 +48,27 @@ body {
   overflow-x: auto;
 }
 
+.math-content {
+  color: #243040;
+}
+
 .math-content h1,
 .math-content h2,
 .math-content h3 {
+  font-family: var(--font-display);
   font-weight: 600;
   letter-spacing: -0.02em;
+  color: var(--color-ink);
 }
 
 .math-content h1 {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   margin-top: 1.5rem;
   margin-bottom: 0.75rem;
 }
 
 .math-content h2 {
-  font-size: 1.25rem;
+  font-size: 1.3rem;
   margin-top: 1.25rem;
   margin-bottom: 0.5rem;
 }
@@ -60,7 +81,7 @@ body {
 
 .math-content p {
   margin: 0.75rem 0;
-  line-height: 1.7;
+  line-height: 1.75;
 }
 
 .math-content ul,
@@ -76,25 +97,25 @@ body {
 .math-content code {
   font-family: var(--font-mono);
   font-size: 0.875em;
-  background: rgba(255, 255, 255, 0.06);
+  background: #e8f2ee;
   padding: 0.15rem 0.4rem;
   border-radius: 0.25rem;
 }
 
 .math-content pre {
-  background: rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 0.5rem;
+  background: #eef4f1;
+  border: 1px solid var(--color-line);
+  border-radius: 0.75rem;
   padding: 1rem;
   overflow-x: auto;
 }
 
 .math-content blockquote {
-  border-left: 3px solid #6366f1;
+  border-left: 3px solid var(--color-accent);
   margin: 1rem 0;
   padding: 0.5rem 1rem;
-  background: rgba(99, 102, 241, 0.08);
-  border-radius: 0 0.5rem 0.5rem 0;
+  background: rgba(15, 118, 110, 0.06);
+  border-radius: 0 0.75rem 0.75rem 0;
 }
 
 .math-content table {
@@ -105,21 +126,24 @@ body {
 
 .math-content th,
 .math-content td {
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--color-line);
+  padding: 0.55rem 0.75rem;
   text-align: left;
 }
 
 .math-content th {
-  background: rgba(255, 255, 255, 0.04);
+  background: #eef5f2;
 }
 
+/* Demo landing */
 .demo-page {
   position: relative;
+  min-height: 100%;
+  overflow: hidden;
   background:
-    radial-gradient(ellipse 80% 60% at 10% 20%, rgba(99, 102, 241, 0.22), transparent 55%),
-    radial-gradient(ellipse 60% 50% at 90% 80%, rgba(56, 189, 248, 0.1), transparent 50%),
-    linear-gradient(165deg, #0b0d14 0%, #12151f 45%, #0f1117 100%);
+    radial-gradient(ellipse 80% 55% at 15% 20%, rgba(15, 118, 110, 0.16), transparent 55%),
+    radial-gradient(ellipse 60% 45% at 90% 10%, rgba(14, 165, 233, 0.12), transparent 50%),
+    linear-gradient(165deg, #e8f3ef 0%, #f7faf8 45%, #eef4f8 100%);
 }
 
 .demo-atmosphere {
@@ -127,37 +151,42 @@ body {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 48px 48px;
-  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black, transparent);
-  animation: demo-grid-drift 28s linear infinite;
+    linear-gradient(rgba(15, 118, 110, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 118, 110, 0.06) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(ellipse 75% 65% at 40% 35%, black, transparent);
+  animation: demo-grid-drift 30s linear infinite;
+}
+
+.demo-hero-visual {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 78% 42%, rgba(255, 255, 255, 0.75), transparent 28%),
+    radial-gradient(circle at 72% 55%, rgba(15, 118, 110, 0.12), transparent 34%);
 }
 
 .demo-title {
   animation: demo-fade-up 0.7s ease-out both;
 }
 
-.demo-hero-copy p:first-of-type {
-  animation: demo-fade-up 0.7s ease-out 0.08s both;
+.demo-hero-copy > p {
+  animation: demo-fade-up 0.7s ease-out 0.1s both;
 }
 
-.demo-hero-copy > p:nth-of-type(2) {
-  animation: demo-fade-up 0.7s ease-out 0.16s both;
-}
-
-.demo-cta {
-  animation: demo-fade-up 0.7s ease-out 0.24s both;
+.demo-cta-row {
+  animation: demo-fade-up 0.7s ease-out 0.2s both;
 }
 
 .demo-formula {
-  animation: demo-fade-up 0.8s ease-out 0.35s both;
+  animation: demo-fade-up 0.8s ease-out 0.32s both;
 }
 
 @keyframes demo-fade-up {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;
@@ -170,16 +199,15 @@ body {
     transform: translateY(0);
   }
   to {
-    transform: translateY(48px);
+    transform: translateY(56px);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .demo-atmosphere,
   .demo-title,
-  .demo-hero-copy p:first-of-type,
-  .demo-hero-copy > p:nth-of-type(2),
-  .demo-cta,
+  .demo-hero-copy > p,
+  .demo-cta-row,
   .demo-formula {
     animation: none;
   }

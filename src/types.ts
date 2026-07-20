@@ -19,6 +19,7 @@ export interface MathEntry {
   tags: string[]
   createdAt: string
   updatedAt: string
+  sourcePath?: string
 }
 
-export type ViewMode = 'list' | 'view' | 'edit' | 'create'
+export type ViewMode = 'list' | 'view'

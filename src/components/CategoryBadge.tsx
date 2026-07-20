@@ -1,15 +1,14 @@
 import type { Category } from '../types'
-import { CATEGORIES } from '../types'
 
 const CATEGORY_COLORS: Record<Category, string> = {
-  Algebra: 'bg-violet-500/20 text-violet-300 ring-violet-500/30',
-  Calculus: 'bg-blue-500/20 text-blue-300 ring-blue-500/30',
-  Geometry: 'bg-emerald-500/20 text-emerald-300 ring-emerald-500/30',
-  'Linear Algebra': 'bg-amber-500/20 text-amber-300 ring-amber-500/30',
-  'Number Theory': 'bg-rose-500/20 text-rose-300 ring-rose-500/30',
-  Statistics: 'bg-cyan-500/20 text-cyan-300 ring-cyan-500/30',
-  Combinatorics: 'bg-orange-500/20 text-orange-300 ring-orange-500/30',
-  Other: 'bg-slate-500/20 text-slate-300 ring-slate-500/30',
+  Algebra: 'bg-teal-50 text-teal-800 ring-teal-200',
+  Calculus: 'bg-sky-50 text-sky-800 ring-sky-200',
+  Geometry: 'bg-emerald-50 text-emerald-800 ring-emerald-200',
+  'Linear Algebra': 'bg-amber-50 text-amber-900 ring-amber-200',
+  'Number Theory': 'bg-rose-50 text-rose-800 ring-rose-200',
+  Statistics: 'bg-cyan-50 text-cyan-800 ring-cyan-200',
+  Combinatorics: 'bg-orange-50 text-orange-900 ring-orange-200',
+  Other: 'bg-slate-100 text-slate-700 ring-slate-200',
 }
 
 interface CategoryBadgeProps {
@@ -27,5 +26,3 @@ export function CategoryBadge({ category, size = 'sm' }: CategoryBadgeProps) {
     </span>
   )
 }
-
-export { CATEGORIES, CATEGORY_COLORS }

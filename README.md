@@ -1,61 +1,46 @@
 # MathVault
 
-A personal website for storing and organising your mathematics knowledge.
+A light, personal maths knowledge base. **Add notes with Cursor** as Markdown files; browse them on the web with LaTeX rendering.
 
 ## Live demo
 
-**Public link (everyone can open):**  
-[https://tommy9866.github.io/Maths-note/](https://tommy9866.github.io/Maths-note/)
+- **Home:** https://tommy9866.github.io/Maths-note/
+- **Library:** https://tommy9866.github.io/Maths-note/#/app
 
-- Demo landing page: [https://tommy9866.github.io/Maths-note/](https://tommy9866.github.io/Maths-note/)
-- Full app: [https://tommy9866.github.io/Maths-note/#/app](https://tommy9866.github.io/Maths-note/#/app)
+## Add maths knowledge with Cursor
 
-> If the link shows a 404, GitHub Pages may still be deploying (usually 2–5 minutes after the first deploy).
+Notes live in `content/notes/`. Ask Cursor, for example:
 
-## Features
+> Add a note about Bayes' theorem under Statistics
 
-- **Demo landing page** — Shareable intro with a sample LaTeX note
-- **Rich notes** — Write in Markdown with full LaTeX support (`$inline$` and `$$display$$` math)
-- **Categories** — Organise notes by topic: Algebra, Calculus, Geometry, and more
-- **Tags** — Add flexible tags for cross-cutting topics
-- **Search** — Find notes by title, content, category, or tag
-- **Local storage** — Your notes stay in your browser (no account required)
-- **Backup** — Export and import your notes as JSON
+Or create a file like `content/notes/bayes-theorem.md`:
 
-## Getting started
+```markdown
+---
+title: Bayes' Theorem
+category: Statistics
+tags: probability, bayesian
+---
+
+$$P(A\mid B) = \frac{P(B\mid A)\,P(A)}{P(B)}$$
+```
+
+See [content/README.md](content/README.md) for the full format.
+
+After adding notes, commit and push (or run `npm run deploy`) so the live site updates.
+
+## Local development
 
 ```bash
 npm install
 npm run dev
 ```
 
-Open [http://localhost:5173/Maths-note/](http://localhost:5173/Maths-note/) in your browser.
-
-## Writing maths
-
-Use standard Markdown for headings, lists, and tables. For mathematics:
-
-- Inline: `$E = mc^2$`
-- Display: `$$\sum_{n=1}^{\infty} \frac{1}{n^2} = \frac{\pi^2}{6}$$`
-
-## Build & deploy
-
-```bash
-npm run build
-npm run preview
-```
-
-Deploy to GitHub Pages:
-
-```bash
-npm run deploy
-```
-
-Or push to `main` / this feature branch — the GitHub Actions workflow publishes automatically.
+Open http://localhost:5173/Maths-note/
 
 ## Tech stack
 
 - React + TypeScript + Vite
 - Tailwind CSS
-- KaTeX (via react-markdown, remark-math, rehype-katex)
-- GitHub Pages for the public demo
+- KaTeX via react-markdown
+- Notes loaded from `content/notes/*.md` at build time
