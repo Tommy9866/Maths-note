@@ -1,49 +1,78 @@
-import type { Components } from 'react-markdown'
+import type { ReactNode } from 'react'
 import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
 import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
 import { Diagram } from './diagrams/Diagram'
+import { parseNoteContent, type ContentSegment } from '../lib/parseContent'
 
 interface MathContentProps {
   content: string
   className?: string
 }
 
-const markdownComponents: Components = {
-  table: ({ children }) => (
-    <div className="table-scroll">
-      <table>{children}</table>
-    </div>
-  ),
+function InlineMarkdown({ text }: { text: string }) {
+  return (
+    <ReactMarkdown
+      remarkPlugins={[remarkMath]}
+      rehypePlugins={[[rehypeKatex, { throwOnError: false, strict: 'ignore' }]]}
+      components={{
+        p: ({ children }) => <span>{children}</span>,
+      }}
+    >
+      {text}
+    </ReactMarkdown>
+  )
 }
 
-/** Supports [[diagram:id]] or [[diagram:id|caption]] in markdown notes. */
-export function MathContent({ content, className = '' }: MathContentProps) {
-  const parts = content.split(/\[\[diagram:([a-z0-9-]+)(?:\|([^\]]+))?\]\]/g)
+function renderSegments(segments: ContentSegment[]): ReactNode[] {
+  return segments.map((segment, index) => {
+    if (segment.type === 'diagram') {
+      return <Diagram key={index} id={segment.id} caption={segment.caption} />
+    }
 
-  return (
-    <div className={`math-content max-w-none ${className}`}>
-      {parts.map((part, index) => {
-        if (index % 3 === 0) {
-          if (!part.trim()) return null
-          return (
-            <ReactMarkdown
-              key={index}
-              remarkPlugins={[remarkGfm, remarkMath]}
-              rehypePlugins={[[rehypeKatex, { throwOnError: false, strict: 'ignore' }]]}
-              components={markdownComponents}
-            >
-              {part}
-            </ReactMarkdown>
-          )
-        }
-        if (index % 3 === 1) {
-          const caption = parts[index + 1] || undefined
-          return <Diagram key={index} id={part} caption={caption} />
-        }
-        return null
-      })}
-    </div>
-  )
+    if (segment.type === 'table') {
+      return (
+        <div key={index} className="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                {segment.headers.map((header, headerIndex) => (
+                  <th key={`${header}-${headerIndex}`}>
+                    <InlineMarkdown text={header} />
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {segment.rows.map((row, rowIndex) => (
+                <tr key={rowIndex}>
+                  {segment.headers.map((_, cellIndex) => (
+                    <td key={cellIndex}>
+                      <InlineMarkdown text={row[cellIndex] ?? ''} />
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )
+    }
+
+    return (
+      <ReactMarkdown
+        key={index}
+        remarkPlugins={[remarkMath]}
+        rehypePlugins={[[rehypeKatex, { throwOnError: false, strict: 'ignore' }]]}
+      >
+        {segment.text}
+      </ReactMarkdown>
+    )
+  })
+}
+
+/** Renders note markdown with a custom table parser so tables always show correctly. */
+export function MathContent({ content, className = '' }: MathContentProps) {
+  const segments = parseNoteContent(content)
+  return <div className={`math-content max-w-none ${className}`}>{renderSegments(segments)}</div>
 }
