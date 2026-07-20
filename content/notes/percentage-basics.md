@@ -7,16 +7,29 @@ subtopic: Percentage Basics
 tags: foundation, fractions
 ---
 
-A percentage is a fraction of $100$:
+## Formula table
 
-$$p\% = \frac{p}{100}$$
+| Idea | Formula |
+|------|---------|
+| Meaning of percent | $p\%=\dfrac{p}{100}$ |
+| Fraction → % | $\dfrac{a}{b}\times 100\%$ |
+| Decimal → % | $\text{decimal}\times 100\%$ |
+| % → decimal | $\dfrac{p}{100}$ |
+| Find $p\%$ of $N$ | $\dfrac{p}{100}\times N$ |
 
 [[diagram:percentage-bar|Part of a whole shown as a percentage]]
 
-## Conversions
+## Derivation
 
-- Fraction → percentage: multiply by $100\%$
-- Decimal → percentage: multiply by $100\%$
-- Percentage → decimal: divide by $100$
+“Per cent” means “per hundred”, so $p\%$ is $p$ parts out of $100$:
 
-Example: $\dfrac{3}{5} = 0.6 = 60\%$
+$$p\%=\frac{p}{100}$$
+
+## Number examples
+
+| Given | Working | Result |
+|-------|---------|--------|
+| $\dfrac{3}{5}$ as % | $\dfrac{3}{5}\times 100\%=60\%$ | $60\%$ |
+| $0.26$ as % | $0.26\times 100\%=26\%$ | $26\%$ |
+| $35\%$ of $80$ | $0.35\times 80$ | $28$ |
+| $12\%$ as decimal | $\dfrac{12}{100}$ | $0.12$ |

@@ -7,21 +7,31 @@ subtopic: Simple Interest
 tags: interest, finance
 ---
 
-Simple interest is calculated on the **original principal** only.
+## Formula table
 
-$$I = Prt$$
+| Quantity | Formula |
+|----------|---------|
+| Simple interest | $I=Prt$ |
+| Amount | $A=P+I=P(1+rt)$ |
+| Rate as decimal | $4\%=0.04$ |
 
-where:
+Where $P$ = principal, $r$ = annual rate (decimal), $t$ = years.
 
-- $P$ = principal
-- $r$ = interest rate per year (as a decimal)
-- $t$ = time in years
-- $I$ = interest earned
+## Derivation
 
-Amount after $t$ years:
+Interest for $1$ year is $Pr$.  
+For $t$ years on the **same** principal (no compounding):
 
-$$A = P + I = P(1 + rt)$$
+$$I = Pr + Pr + \cdots + Pr = Prt$$
 
-Example: $\$2000$ at $4\%$ p.a. for $3$ years:
+So
 
-$$I = 2000 \times 0.04 \times 3 = \$240$$
+$$A=P+Prt=P(1+rt)$$
+
+## Number examples
+
+| $P$ | $r$ | $t$ | Interest $I$ | Amount $A$ |
+|-----|-----|-----|--------------|------------|
+| $\$2000$ | $4\%=0.04$ | $3$ | $2000\times 0.04\times 3=\$240$ | $\$2240$ |
+| $\$5000$ | $3\%=0.03$ | $2$ | $5000\times 0.03\times 2=\$300$ | $\$5300$ |
+| $\$800$ | $5\%=0.05$ | $4$ | $800\times 0.05\times 4=\$160$ | $\$960$ |

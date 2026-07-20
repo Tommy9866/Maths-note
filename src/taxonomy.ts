@@ -94,6 +94,7 @@ export const TOPIC_SUBTOPICS: Record<string, TopicSubtopic[]> = {
     { name: 'LCM', typicalForms: ['F1'] },
     { name: 'Order of Operations', typicalForms: ['F1'] },
     { name: 'Decimal Operations', typicalForms: ['F1'] },
+    { name: 'Enrichment Facts', typicalForms: ['F1', 'F2', 'F3'] },
   ],
   'Quadratic Equations in One Unknown (I)': [
     { name: 'Solving by Factorisation', typicalForms: ['F4'] },

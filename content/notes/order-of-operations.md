@@ -7,23 +7,25 @@ subtopic: Order of Operations
 tags: arithmetic, brackets, MIF-1A-Ch1
 ---
 
-When an expression mixes operations, use this order:
+## Order table
 
-1. **Brackets** — innermost first: $(\;)$, then $[\;]$, then $\{\;\}$
-2. **Powers** (indices)
-3. **× and ÷** from left to right
-4. **+ and −** from left to right
+| Priority | Do this first |
+|----------|----------------|
+| 1 | Brackets: $(\;)$ then $[\;]$ then $\{\;\}$ |
+| 2 | Powers / indices |
+| 3 | $\times$ and $\div$ (left to right) |
+| 4 | $+$ and $-$ (left to right) |
 
-## Why brackets matter
+## Why
 
-$$5 \times 20 - 18 \div 2 = 100 - 9 = 91$$
+Operations are not all equal. Without a fixed order, $5\times 20-18\div 2$ could mean many different things. The standard order makes every expression have one agreed value.
 
-$$5 \times (20 - 18) \div 2 = 5 \times 2 \div 2 = 5$$
+## Number examples
 
-$$5 \times (20 - 18 \div 2) = 5 \times (20 - 9) = 55$$
-
-Same digits, different bracket placement → different answers.
-
-## Tip for fractions
-
-If division is written as a fraction bar, convert mixed numbers to improper fractions before calculating when needed.
+| Expression | Working | Value |
+|------------|---------|-------|
+| $5\times 20-18\div 2$ | $100-9$ | $91$ |
+| $5\times(20-18)\div 2$ | $5\times 2\div 2$ | $5$ |
+| $5\times(20-18\div 2)$ | $5\times(20-9)$ | $55$ |
+| $11+5\times 3$ | $11+15$ | $26$ |
+| $(11+5)\times 3$ | $16\times 3$ | $48$ |

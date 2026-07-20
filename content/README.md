@@ -18,6 +18,16 @@ tags: foundation
 - `topic`: DSE topic name from `src/taxonomy.ts`
 - `subtopic`: smaller unit inside the topic (split by content, e.g. Percentage Change vs Simple Interest)
 
+### Note body style
+
+Prefer this structure:
+
+1. **Formula table** for lists of formulas  
+2. **Derivation** (short why / proof idea)  
+3. **Number examples** (worked values in a table)
+
+Enrichment / beyond-syllabus facts use subtopic `Enrichment Facts`.
+
 ### Diagrams
 
 ```markdown
