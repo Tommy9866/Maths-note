@@ -9,6 +9,10 @@ tags: integers, factors, MIF-1A-Ch1
 
 An integer $n$ is **divisible** by $d$ if there exists an integer $k$ such that $n = dk$ (remainder $0$).
 
+[[diagram:digit-sum|Demo style: check divisibility by 3 or 9 using the digit sum]]
+
+[[diagram:divisibility-digits|Demo style: check divisibility by 4 using the last two digits]]
+
 ## Formula / rule table
 
 | Divisible by | Rule |

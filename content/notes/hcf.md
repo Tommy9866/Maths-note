@@ -9,6 +9,8 @@ tags: factors, HCF, GCD, MIF-1A-Ch1
 
 The **H.C.F.** (also **G.C.D.**) of integers is the largest positive integer that divides all of them.
 
+[[diagram:short-division-hcf|Demo style: HCF of 56 and 84 by short division]]
+
 ## Formula / method table
 
 | Method | Rule |

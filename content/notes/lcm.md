@@ -9,6 +9,8 @@ tags: multiples, LCM, MIF-1A-Ch1
 
 The **L.C.M.** of integers is the smallest positive integer that is a multiple of all of them.
 
+[[diagram:short-division-lcm|Demo style: LCM of 18 and 60 by short division]]
+
 ## Formula / method table
 
 | Method | Rule |

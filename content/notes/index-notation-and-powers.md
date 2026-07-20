@@ -7,6 +7,8 @@ subtopic: Index Notation and Powers
 tags: powers, indices, MIF-1A-Ch1
 ---
 
+[[diagram:index-notation|Demo style: rewrite a repeated product in index form]]
+
 ## Formula table
 
 | Idea | Formula |

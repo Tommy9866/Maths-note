@@ -7,6 +7,8 @@ subtopic: Prime and Composite Numbers
 tags: primes, factors, MIF-1A-Ch1
 ---
 
+[[diagram:prime-vs-composite|Demo style: list factors to decide prime or composite]]
+
 ## Definition table
 
 | Type | Meaning | Examples |

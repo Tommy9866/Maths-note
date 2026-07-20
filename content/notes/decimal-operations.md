@@ -7,6 +7,8 @@ subtopic: Decimal Operations
 tags: decimals, arithmetic, MIF-1A-Ch1
 ---
 
+[[diagram:decimal-align|Demo style: line up decimal points when adding]]
+
 ## Formula / rule table
 
 | Operation | Rule |

@@ -9,7 +9,9 @@ tags: primes, factors, MIF-1A-Ch1
 
 **Prime factorization** writes an integer as a product of primes.
 
-[[diagram:factor-tree|Factor tree for 36]]
+[[diagram:factor-tree|Demo style: factor tree for 36]]
+
+[[diagram:short-division-prime|Demo style: short division for prime factorization of 20]]
 
 ## Formula / form table
 

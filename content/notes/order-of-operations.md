@@ -7,6 +7,8 @@ subtopic: Order of Operations
 tags: arithmetic, brackets, MIF-1A-Ch1
 ---
 
+[[diagram:order-brackets|Demo style: brackets change the value of the same digits]]
+
 ## Order table
 
 | Priority | Do this first |

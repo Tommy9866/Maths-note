@@ -34,4 +34,7 @@ Enrichment / beyond-syllabus facts use subtopic `Enrichment Facts`.
 [[diagram:right-triangle|Optional caption]]
 ```
 
-Ids: `right-triangle`, `parabola`, `straight-line`, `circle-area`, `cylinder`, `percentage-bar`, `function-curve`, `box-plot`, `factor-tree`
+Ids:
+
+- Geometry / graphs: `right-triangle`, `parabola`, `straight-line`, `circle-area`, `cylinder`, `function-curve`, `box-plot`, `percentage-bar`
+- F1 demo-style aids: `digit-sum`, `divisibility-digits`, `index-notation`, `prime-vs-composite`, `factor-tree`, `short-division-prime`, `short-division-hcf`, `short-division-lcm`, `order-brackets`, `decimal-align`

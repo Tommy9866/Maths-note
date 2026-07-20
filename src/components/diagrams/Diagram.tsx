@@ -10,6 +10,15 @@ const diagrams: Record<string, () => ReactNode> = {
   'function-curve': FunctionCurve,
   'box-plot': BoxPlot,
   'factor-tree': FactorTree,
+  'divisibility-digits': DivisibilityDigits,
+  'digit-sum': DigitSum,
+  'index-notation': IndexNotation,
+  'prime-vs-composite': PrimeVsComposite,
+  'short-division-prime': ShortDivisionPrime,
+  'short-division-hcf': ShortDivisionHcf,
+  'short-division-lcm': ShortDivisionLcm,
+  'order-brackets': OrderBrackets,
+  'decimal-align': DecimalAlign,
 }
 
 export function Diagram({ id, caption }: { id: string; caption?: string }) {
@@ -236,6 +245,358 @@ function FactorTree() {
       </text>
       <text x="160" y="212" textAnchor="middle" fill="#5b6b7c" fontSize="12">
         36 = 2² × 3²
+      </text>
+    </Frame>
+  )
+}
+
+/** Demo-style: highlight last 2 digits for divisibility by 4 (like MIF Demo 3). */
+function DivisibilityDigits() {
+  return (
+    <Frame viewBox="0 0 320 200">
+      <text x="160" y="36" textAnchor="middle" fill="#5b6b7c" fontSize="13">
+        Is 612 divisible by 4?
+      </text>
+      <text x="88" y="100" fill="#18212b" fontSize="42" fontWeight="700" fontFamily="ui-monospace, monospace">
+        6
+      </text>
+      <rect x="128" y="58" width="100" height="60" rx="10" fill="#ccfbf1" stroke="#0f766e" strokeWidth="3" />
+      <text x="148" y="100" fill="#0f766e" fontSize="42" fontWeight="700" fontFamily="ui-monospace, monospace">
+        1
+      </text>
+      <text x="188" y="100" fill="#0f766e" fontSize="42" fontWeight="700" fontFamily="ui-monospace, monospace">
+        2
+      </text>
+      <text x="178" y="140" textAnchor="middle" fill="#0f766e" fontSize="12" fontWeight="600">
+        last two digits
+      </text>
+      <text x="160" y="168" textAnchor="middle" fill="#18212b" fontSize="14">
+        12 ÷ 4 = 3 → yes, 612 is divisible by 4
+      </text>
+      <text x="160" y="190" textAnchor="middle" fill="#5b6b7c" fontSize="12">
+        For 8, check the last three digits instead
+      </text>
+    </Frame>
+  )
+}
+
+/** Demo-style: digit sum for divisibility by 3 or 9 (MIF Demo 2 / 6). */
+function DigitSum() {
+  return (
+    <Frame viewBox="0 0 320 210">
+      <text x="160" y="30" textAnchor="middle" fill="#5b6b7c" fontSize="13">
+        Is 468 divisible by 3 (and by 9)?
+      </text>
+      <g fontFamily="ui-monospace, monospace" fontSize="36" fontWeight="700">
+        <rect x="50" y="50" width="48" height="52" rx="8" fill="#e0f2fe" stroke="#0284c7" strokeWidth="2" />
+        <text x="74" y="88" textAnchor="middle" fill="#0284c7">
+          4
+        </text>
+        <text x="112" y="88" fill="#94a3b8">
+          +
+        </text>
+        <rect x="136" y="50" width="48" height="52" rx="8" fill="#e0f2fe" stroke="#0284c7" strokeWidth="2" />
+        <text x="160" y="88" textAnchor="middle" fill="#0284c7">
+          6
+        </text>
+        <text x="198" y="88" fill="#94a3b8">
+          +
+        </text>
+        <rect x="222" y="50" width="48" height="52" rx="8" fill="#e0f2fe" stroke="#0284c7" strokeWidth="2" />
+        <text x="246" y="88" textAnchor="middle" fill="#0284c7">
+          8
+        </text>
+      </g>
+      <path d="M74 110 V130 H246 V110" fill="none" stroke="#94a3b8" strokeWidth="2" />
+      <text x="160" y="152" textAnchor="middle" fill="#0f766e" fontSize="20" fontWeight="700">
+        sum = 18
+      </text>
+      <text x="160" y="178" textAnchor="middle" fill="#18212b" fontSize="13">
+        18 ÷ 3 = 6 and 18 ÷ 9 = 2 → yes for both
+      </text>
+      <text x="160" y="198" textAnchor="middle" fill="#5b6b7c" fontSize="12">
+        Same demo idea as the textbook digit-sum check
+      </text>
+    </Frame>
+  )
+}
+
+/** Demo-style: expanded product → index notation (MIF 1.2 Demo 1). */
+function IndexNotation() {
+  return (
+    <Frame viewBox="0 0 320 200">
+      <text x="160" y="28" textAnchor="middle" fill="#5b6b7c" fontSize="13">
+        Express in index notation
+      </text>
+      <rect x="24" y="48" width="272" height="48" rx="10" fill="#f8fafc" stroke="#d7e3dd" />
+      <text x="160" y="78" textAnchor="middle" fill="#18212b" fontSize="16" fontFamily="ui-monospace, monospace">
+        6 × 6 × 6 × 6
+      </text>
+      <text x="160" y="118" textAnchor="middle" fill="#0f766e" fontSize="22" fontWeight="700">
+        ↓
+      </text>
+      <rect x="70" y="130" width="180" height="48" rx="10" fill="#ccfbf1" stroke="#0f766e" strokeWidth="2" />
+      <text x="160" y="162" textAnchor="middle" fill="#0f766e" fontSize="22" fontWeight="700">
+        6⁴
+      </text>
+    </Frame>
+  )
+}
+
+/** Demo-style: list factors to decide prime vs composite (MIF 1.2 Demo 3). */
+function PrimeVsComposite() {
+  return (
+    <Frame viewBox="0 0 320 210">
+      <text x="80" y="28" textAnchor="middle" fill="#5b6b7c" fontSize="12" fontWeight="600">
+        51
+      </text>
+      <text x="240" y="28" textAnchor="middle" fill="#5b6b7c" fontSize="12" fontWeight="600">
+        61
+      </text>
+      <rect x="20" y="40" width="120" height="120" rx="12" fill="#fff7ed" stroke="#f59e0b" strokeWidth="2" />
+      <rect x="180" y="40" width="120" height="120" rx="12" fill="#ecfdf5" stroke="#0f766e" strokeWidth="2" />
+      <text x="80" y="68" textAnchor="middle" fill="#92400e" fontSize="12">
+        factors
+      </text>
+      <text x="80" y="92" textAnchor="middle" fill="#18212b" fontSize="13" fontWeight="600">
+        1, 3, 17, 51
+      </text>
+      <text x="80" y="120" textAnchor="middle" fill="#b45309" fontSize="14" fontWeight="700">
+        composite
+      </text>
+      <text x="80" y="142" textAnchor="middle" fill="#78716c" fontSize="11">
+        more than 2 factors
+      </text>
+      <text x="240" y="68" textAnchor="middle" fill="#0f766e" fontSize="12">
+        factors
+      </text>
+      <text x="240" y="92" textAnchor="middle" fill="#18212b" fontSize="13" fontWeight="600">
+        1, 61
+      </text>
+      <text x="240" y="120" textAnchor="middle" fill="#0f766e" fontSize="14" fontWeight="700">
+        prime
+      </text>
+      <text x="240" y="142" textAnchor="middle" fill="#5b6b7c" fontSize="11">
+        only 2 factors
+      </text>
+      <text x="160" y="190" textAnchor="middle" fill="#5b6b7c" fontSize="12">
+        Note: 1 is neither prime nor composite
+      </text>
+    </Frame>
+  )
+}
+
+/** Demo-style short division for prime factorization of 20 (MIF tip). */
+function ShortDivisionPrime() {
+  return (
+    <Frame viewBox="0 0 320 210">
+      <text x="160" y="28" textAnchor="middle" fill="#5b6b7c" fontSize="13">
+        Short division → prime factors of 20
+      </text>
+      <g fontFamily="ui-monospace, monospace" fontSize="18" fontWeight="700">
+        <text x="90" y="70" fill="#0284c7">
+          2
+        </text>
+        <text x="120" y="70" fill="#94a3b8">
+          |
+        </text>
+        <text x="145" y="70" fill="#18212b">
+          20
+        </text>
+        <text x="90" y="105" fill="#0284c7">
+          2
+        </text>
+        <text x="120" y="105" fill="#94a3b8">
+          |
+        </text>
+        <text x="145" y="105" fill="#18212b">
+          10
+        </text>
+        <text x="145" y="140" fill="#0f766e">
+          5
+        </text>
+      </g>
+      <line x1="125" y1="55" x2="125" y2="150" stroke="#cbd5e1" strokeWidth="2" />
+      <text x="160" y="175" textAnchor="middle" fill="#0f766e" fontSize="16" fontWeight="700">
+        20 = 2 × 2 × 5 = 2² × 5
+      </text>
+      <text x="160" y="196" textAnchor="middle" fill="#5b6b7c" fontSize="12">
+        Keep dividing by the smallest prime
+      </text>
+    </Frame>
+  )
+}
+
+/** Demo-style HCF short division for 56 and 84 (MIF 1.3 Demo 3). */
+function ShortDivisionHcf() {
+  return (
+    <Frame viewBox="0 0 320 220">
+      <text x="160" y="26" textAnchor="middle" fill="#5b6b7c" fontSize="13">
+        HCF of 56 and 84 by short division
+      </text>
+      <g fontFamily="ui-monospace, monospace" fontSize="16" fontWeight="700">
+        <text x="70" y="60" fill="#0284c7">
+          2
+        </text>
+        <text x="100" y="60" fill="#94a3b8">
+          |
+        </text>
+        <text x="125" y="60" fill="#18212b">
+          56
+        </text>
+        <text x="175" y="60" fill="#18212b">
+          84
+        </text>
+        <text x="70" y="92" fill="#0284c7">
+          2
+        </text>
+        <text x="100" y="92" fill="#94a3b8">
+          |
+        </text>
+        <text x="125" y="92" fill="#18212b">
+          28
+        </text>
+        <text x="175" y="92" fill="#18212b">
+          42
+        </text>
+        <text x="70" y="124" fill="#0284c7">
+          7
+        </text>
+        <text x="100" y="124" fill="#94a3b8">
+          |
+        </text>
+        <text x="125" y="124" fill="#18212b">
+          14
+        </text>
+        <text x="175" y="124" fill="#18212b">
+          21
+        </text>
+        <text x="125" y="156" fill="#5b6b7c">
+          2
+        </text>
+        <text x="175" y="156" fill="#5b6b7c">
+          3
+        </text>
+      </g>
+      <text x="160" y="188" textAnchor="middle" fill="#0f766e" fontSize="15" fontWeight="700">
+        HCF = 2 × 2 × 7 = 28
+      </text>
+      <text x="160" y="208" textAnchor="middle" fill="#5b6b7c" fontSize="12">
+        Stop when no common prime remains
+      </text>
+    </Frame>
+  )
+}
+
+/** Demo-style LCM short division for 18 and 60 (MIF 1.3 Demo 6). */
+function ShortDivisionLcm() {
+  return (
+    <Frame viewBox="0 0 320 220">
+      <text x="160" y="26" textAnchor="middle" fill="#5b6b7c" fontSize="13">
+        LCM of 18 and 60 by short division
+      </text>
+      <g fontFamily="ui-monospace, monospace" fontSize="16" fontWeight="700">
+        <text x="70" y="60" fill="#0284c7">
+          2
+        </text>
+        <text x="100" y="60" fill="#94a3b8">
+          |
+        </text>
+        <text x="125" y="60" fill="#18212b">
+          18
+        </text>
+        <text x="175" y="60" fill="#18212b">
+          60
+        </text>
+        <text x="70" y="92" fill="#0284c7">
+          3
+        </text>
+        <text x="100" y="92" fill="#94a3b8">
+          |
+        </text>
+        <text x="125" y="92" fill="#18212b">
+          9
+        </text>
+        <text x="175" y="92" fill="#18212b">
+          30
+        </text>
+        <text x="70" y="124" fill="#0284c7">
+          3
+        </text>
+        <text x="100" y="124" fill="#94a3b8">
+          |
+        </text>
+        <text x="125" y="124" fill="#18212b">
+          3
+        </text>
+        <text x="175" y="124" fill="#18212b">
+          10
+        </text>
+        <text x="125" y="156" fill="#5b6b7c">
+          1
+        </text>
+        <text x="175" y="156" fill="#5b6b7c">
+          10
+        </text>
+      </g>
+      <text x="160" y="188" textAnchor="middle" fill="#0f766e" fontSize="15" fontWeight="700">
+        LCM = 2 × 3 × 3 × 10 = 180
+      </text>
+      <text x="160" y="208" textAnchor="middle" fill="#5b6b7c" fontSize="12">
+        Multiply all divisors and remaining factors
+      </text>
+    </Frame>
+  )
+}
+
+/** Demo-style bracket order (MIF 1.4 tip). */
+function OrderBrackets() {
+  return (
+    <Frame viewBox="0 0 320 210">
+      <text x="160" y="28" textAnchor="middle" fill="#5b6b7c" fontSize="13">
+        Same digits, different brackets
+      </text>
+      <rect x="20" y="44" width="280" height="40" rx="8" fill="#f8fafc" stroke="#d7e3dd" />
+      <text x="160" y="70" textAnchor="middle" fill="#18212b" fontSize="14" fontFamily="ui-monospace, monospace">
+        5 × 20 − 18 ÷ 2 = 91
+      </text>
+      <rect x="20" y="96" width="280" height="40" rx="8" fill="#ecfdf5" stroke="#0f766e" />
+      <text x="160" y="122" textAnchor="middle" fill="#0f766e" fontSize="14" fontFamily="ui-monospace, monospace" fontWeight="700">
+        5 × (20 − 18) ÷ 2 = 5
+      </text>
+      <rect x="20" y="148" width="280" height="40" rx="8" fill="#e0f2fe" stroke="#0284c7" />
+      <text x="160" y="174" textAnchor="middle" fill="#0284c7" fontSize="14" fontFamily="ui-monospace, monospace" fontWeight="700">
+        5 × (20 − 18 ÷ 2) = 55
+      </text>
+    </Frame>
+  )
+}
+
+/** Demo-style decimal point alignment for add/subtract. */
+function DecimalAlign() {
+  return (
+    <Frame viewBox="0 0 320 200">
+      <text x="160" y="28" textAnchor="middle" fill="#5b6b7c" fontSize="13">
+        Line up decimal points
+      </text>
+      <g fontFamily="ui-monospace, monospace" fontSize="20" fontWeight="700">
+        <text x="100" y="70" fill="#18212b">
+          82.50
+        </text>
+        <text x="70" y="100" fill="#94a3b8">
+          +
+        </text>
+        <text x="100" y="100" fill="#18212b">
+          7.64
+        </text>
+        <line x1="95" y1="112" x2="190" y2="112" stroke="#0f766e" strokeWidth="2" />
+        <text x="100" y="140" fill="#0f766e">
+          90.14
+        </text>
+      </g>
+      <line x1="148" y1="50" x2="148" y2="150" stroke="#f59e0b" strokeWidth="2" strokeDasharray="4 3" />
+      <text x="160" y="175" textAnchor="middle" fill="#b45309" fontSize="12" fontWeight="600">
+        decimal points in a vertical line
       </text>
     </Frame>
   )
