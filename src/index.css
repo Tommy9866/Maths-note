@@ -172,6 +172,197 @@ body {
   overflow-y: hidden;
 }
 
+/* Step-by-step teaching demos */
+.teach-demo {
+  margin: 1.25rem 0;
+  border: 1px solid #c9d9d1;
+  border-radius: 1rem;
+  background: #fff;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(24, 33, 43, 0.06);
+}
+
+.teach-demo-label {
+  display: inline-block;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0f766e;
+  margin-bottom: 0.35rem;
+}
+
+.teach-demo-question {
+  padding: 1rem 1.15rem;
+  background: #ecfdf5;
+  border-bottom: 1px solid #d7e3dd;
+}
+
+.teach-demo-question p {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 650;
+  color: #18212b;
+  line-height: 1.45;
+}
+
+.teach-demo-steps {
+  list-style: none;
+  margin: 0;
+  padding: 0.75rem 1rem 0.25rem;
+}
+
+.teach-demo-steps li {
+  display: flex;
+  gap: 0.85rem;
+  margin: 0 0 0.9rem;
+}
+
+.teach-demo-step-num {
+  flex: 0 0 2rem;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  background: #0f766e;
+  color: #fff;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.15rem;
+}
+
+.teach-demo-step-body h4 {
+  margin: 0 0 0.35rem;
+  font-family: var(--font-sans);
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #18212b;
+}
+
+.teach-demo-step-body p {
+  margin: 0.25rem 0;
+}
+
+.teach-big-math {
+  margin: 0.35rem 0;
+  padding: 0.7rem 0.9rem;
+  border-radius: 0.7rem;
+  background: #f5faf7;
+  border: 1px solid #e4efe9;
+  font-size: 1.2rem;
+  font-weight: 650;
+  color: #18212b;
+  line-height: 1.5;
+}
+
+.teach-highlight {
+  background: #ccfbf1;
+  border-radius: 0.35rem;
+  padding: 0.05rem 0.25rem;
+  border: 2px solid #0f766e;
+}
+
+.teach-digit-row,
+.teach-count-row,
+.teach-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0.4rem 0 0.55rem;
+}
+
+.teach-digit {
+  min-width: 2.4rem;
+  height: 2.8rem;
+  padding: 0 0.55rem;
+  border-radius: 0.55rem;
+  border: 2px solid #cbd5e1;
+  background: #f8fafc;
+  color: #18212b;
+  font-size: 1.35rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.teach-digit-on {
+  border-color: #0f766e;
+  background: #ccfbf1;
+  box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.12);
+}
+
+.teach-count-row span,
+.teach-chip-row span {
+  min-width: 2.2rem;
+  padding: 0.4rem 0.7rem;
+  border-radius: 0.55rem;
+  border: 1px solid #c9d9d1;
+  background: #ecfdf5;
+  color: #134e4a;
+  font-weight: 700;
+  text-align: center;
+}
+
+.teach-chip-warn {
+  background: #fff7ed !important;
+  border-color: #fdba74 !important;
+  color: #9a3412 !important;
+}
+
+.teach-demo-answer {
+  margin: 0 1rem 1rem;
+  padding: 0.9rem 1rem;
+  border-radius: 0.8rem;
+  background: #0f766e;
+  color: #fff;
+}
+
+.teach-demo-answer .teach-demo-label {
+  color: #99f6e4;
+}
+
+.teach-demo-answer .teach-big-math {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.22);
+  color: #fff;
+  margin-bottom: 0;
+}
+
+.teach-demo-tip {
+  margin: 0;
+  padding: 0.85rem 1.15rem 1.1rem;
+  font-size: 0.95rem;
+  color: #5b6b7c;
+  line-height: 1.55;
+  border-top: 1px solid #e4efe9;
+  background: #fbfefc;
+}
+
+.teach-demo-tip strong {
+  color: #0f766e;
+}
+
+.teach-sum {
+  margin: 0.35rem 0;
+  padding: 0.8rem 1rem;
+  border-radius: 0.7rem;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  font-family: var(--font-mono);
+  font-size: 1.05rem;
+  line-height: 1.55;
+  white-space: pre;
+}
+
+.teach-demo-missing {
+  padding: 1rem;
+  border: 1px dashed #d7e3dd;
+  border-radius: 0.75rem;
+  color: #5b6b7c;
+}
+
 /* Demo landing */
 .demo-page {
   position: relative;

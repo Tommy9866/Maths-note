@@ -1,11 +1,13 @@
 export type ContentSegment =
   | { type: 'markdown'; text: string }
   | { type: 'diagram'; id: string; caption?: string }
+  | { type: 'demo'; id: string }
   | { type: 'table'; headers: string[]; rows: string[][] }
 
 const DIAGRAM_RE = /\[\[diagram:([a-z0-9-]+)(?:\|([^\]]+))?\]\]/g
+const DEMO_RE = /\[\[demo:([a-z0-9-]+)\]\]/g
 const TABLE_RE =
-  /(?:^|\n)(\|[^\n]+\|\r?\n\|[-:\s|]+\|\r?\n(?:\|[^\n]+\|\r?\n?)*)/g
+  /(?:^|\n)(\|[^\n]+\|\r?\n\|[:\s|-]+\|\r?\n(?:\|[^\n]+\|\r?\n?)*)/g
 
 function splitCells(line: string): string[] {
   const trimmed = line.trim().replace(/^\|/, '').replace(/\|$/, '')
@@ -13,7 +15,6 @@ function splitCells(line: string): string[] {
 }
 
 function isSeparatorRow(line: string): boolean {
-  // Keep '-' at the end so it is literal, not a character-class range.
   return /^\|?[:\s|-]+\|?$/.test(line.trim()) && line.includes('-')
 }
 
@@ -63,31 +64,45 @@ function splitByRegex(
   return segments
 }
 
+function expandMarkdownSegments(
+  parts: ContentSegment[],
+  regex: RegExp,
+  toSegment: (match: RegExpExecArray) => ContentSegment | null,
+): ContentSegment[] {
+  const next: ContentSegment[] = []
+  for (const part of parts) {
+    if (part.type !== 'markdown') {
+      next.push(part)
+      continue
+    }
+    const pieces = splitByRegex(part.text, regex, toSegment)
+    for (const piece of pieces) {
+      if (piece.type === 'markdown' && !piece.text.trim()) continue
+      next.push(piece)
+    }
+  }
+  return next
+}
+
 export function parseNoteContent(content: string): ContentSegment[] {
-  const withDiagrams = splitByRegex(content, DIAGRAM_RE, (match) => ({
+  let segments: ContentSegment[] = [{ type: 'markdown', text: content }]
+
+  segments = expandMarkdownSegments(segments, DEMO_RE, (match) => ({
+    type: 'demo',
+    id: match[1],
+  }))
+
+  segments = expandMarkdownSegments(segments, DIAGRAM_RE, (match) => ({
     type: 'diagram',
     id: match[1],
     caption: match[2] || undefined,
   }))
 
-  const segments: ContentSegment[] = []
-  for (const part of withDiagrams) {
-    if (part.type !== 'markdown') {
-      segments.push(part)
-      continue
-    }
-
-    const tableParts = splitByRegex(part.text, TABLE_RE, (match) => {
-      const parsed = parseTableBlock(match[1] ?? match[0])
-      if (!parsed) return { type: 'markdown', text: match[0] }
-      return { type: 'table', ...parsed }
-    })
-
-    for (const piece of tableParts) {
-      if (piece.type === 'markdown' && !piece.text.trim()) continue
-      segments.push(piece)
-    }
-  }
+  segments = expandMarkdownSegments(segments, TABLE_RE, (match) => {
+    const parsed = parseTableBlock(match[1] ?? match[0])
+    if (!parsed) return { type: 'markdown', text: match[0] }
+    return { type: 'table', ...parsed }
+  })
 
   return segments
 }

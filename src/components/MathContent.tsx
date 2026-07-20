@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown'
 import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
 import { Diagram } from './diagrams/Diagram'
+import { TeachingDemoById } from './teaching/TeachingDemo'
 import { parseNoteContent, type ContentSegment } from '../lib/parseContent'
 
 interface MathContentProps {
@@ -26,6 +27,10 @@ function InlineMarkdown({ text }: { text: string }) {
 
 function renderSegments(segments: ContentSegment[]): ReactNode[] {
   return segments.map((segment, index) => {
+    if (segment.type === 'demo') {
+      return <TeachingDemoById key={index} id={segment.id} />
+    }
+
     if (segment.type === 'diagram') {
       return <Diagram key={index} id={segment.id} caption={segment.caption} />
     }
@@ -71,7 +76,6 @@ function renderSegments(segments: ContentSegment[]): ReactNode[] {
   })
 }
 
-/** Renders note markdown with a custom table parser so tables always show correctly. */
 export function MathContent({ content, className = '' }: MathContentProps) {
   const segments = parseNoteContent(content)
   return <div className={`math-content max-w-none ${className}`}>{renderSegments(segments)}</div>
