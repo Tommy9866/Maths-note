@@ -86,6 +86,14 @@ export const TOPIC_SUBTOPICS: Record<string, TopicSubtopic[]> = {
   'Other Typical Topics': [
     { name: 'Rates and Ratio', typicalForms: ['F1', 'F2'] },
     { name: 'Directed Numbers', typicalForms: ['F1'] },
+    { name: 'Divisibility Rules', typicalForms: ['F1'] },
+    { name: 'Index Notation and Powers', typicalForms: ['F1'] },
+    { name: 'Prime and Composite Numbers', typicalForms: ['F1'] },
+    { name: 'Prime Factorization', typicalForms: ['F1'] },
+    { name: 'HCF', typicalForms: ['F1'] },
+    { name: 'LCM', typicalForms: ['F1'] },
+    { name: 'Order of Operations', typicalForms: ['F1'] },
+    { name: 'Decimal Operations', typicalForms: ['F1'] },
   ],
   'Quadratic Equations in One Unknown (I)': [
     { name: 'Solving by Factorisation', typicalForms: ['F4'] },

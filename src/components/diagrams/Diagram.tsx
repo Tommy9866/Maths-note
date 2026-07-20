@@ -9,6 +9,7 @@ const diagrams: Record<string, () => ReactNode> = {
   'percentage-bar': PercentageBar,
   'function-curve': FunctionCurve,
   'box-plot': BoxPlot,
+  'factor-tree': FactorTree,
 }
 
 export function Diagram({ id, caption }: { id: string; caption?: string }) {
@@ -201,6 +202,40 @@ function BoxPlot() {
       </text>
       <text x="270" y="140" textAnchor="middle" fill="#5b6b7c" fontSize="11">
         max
+      </text>
+    </Frame>
+  )
+}
+
+function FactorTree() {
+  return (
+    <Frame viewBox="0 0 320 220">
+      <circle cx="160" cy="36" r="22" fill="#ccfbf1" stroke="#0f766e" strokeWidth="2" />
+      <text x="160" y="41" textAnchor="middle" fill="#0f766e" fontSize="14" fontWeight="700">
+        36
+      </text>
+      <line x1="148" y1="56" x2="100" y2="90" stroke="#94a3b8" strokeWidth="2" />
+      <line x1="172" y1="56" x2="220" y2="90" stroke="#94a3b8" strokeWidth="2" />
+      <circle cx="90" cy="110" r="20" fill="#e0f2fe" stroke="#0284c7" strokeWidth="2" />
+      <text x="90" y="115" textAnchor="middle" fill="#0284c7" fontSize="14" fontWeight="700">
+        2
+      </text>
+      <circle cx="230" cy="110" r="20" fill="#ccfbf1" stroke="#0f766e" strokeWidth="2" />
+      <text x="230" y="115" textAnchor="middle" fill="#0f766e" fontSize="14" fontWeight="700">
+        18
+      </text>
+      <line x1="218" y1="128" x2="180" y2="158" stroke="#94a3b8" strokeWidth="2" />
+      <line x1="242" y1="128" x2="270" y2="158" stroke="#94a3b8" strokeWidth="2" />
+      <circle cx="170" cy="178" r="18" fill="#e0f2fe" stroke="#0284c7" strokeWidth="2" />
+      <text x="170" y="183" textAnchor="middle" fill="#0284c7" fontSize="13" fontWeight="700">
+        2
+      </text>
+      <circle cx="280" cy="178" r="18" fill="#ccfbf1" stroke="#0f766e" strokeWidth="2" />
+      <text x="280" y="183" textAnchor="middle" fill="#0f766e" fontSize="13" fontWeight="700">
+        9
+      </text>
+      <text x="160" y="212" textAnchor="middle" fill="#5b6b7c" fontSize="12">
+        36 = 2² × 3²
       </text>
     </Frame>
   )

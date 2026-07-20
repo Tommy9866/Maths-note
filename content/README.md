@@ -24,4 +24,4 @@ tags: foundation
 [[diagram:right-triangle|Optional caption]]
 ```
 
-Ids: `right-triangle`, `parabola`, `straight-line`, `circle-area`, `cylinder`, `percentage-bar`, `function-curve`, `box-plot`
+Ids: `right-triangle`, `parabola`, `straight-line`, `circle-area`, `cylinder`, `percentage-bar`, `function-curve`, `box-plot`, `factor-tree`
