@@ -1,5 +1,6 @@
-import { CATEGORIES } from '../types'
-import type { Category, MathEntry } from '../types'
+import { ALL_DSE_TOPICS, DSE_SECTIONS, FORMS, findDseSectionByTopic } from '../taxonomy'
+import type { FormLevel } from '../taxonomy'
+import type { MathEntry } from '../types'
 
 const noteModules = import.meta.glob('../../content/notes/**/*.md', {
   eager: true,
@@ -29,7 +30,18 @@ function parseNote(path: string, raw: string): MathEntry | null {
     return null
   }
 
-  const category = normalizeCategory(frontmatter.category)
+  const forms = parseForms(frontmatter.form ?? frontmatter.forms)
+  const dseTopic = (frontmatter.topic ?? frontmatter.dse_topic ?? '').trim()
+  const sectionFromTopic = findDseSectionByTopic(dseTopic)
+  const dseSectionId =
+    frontmatter.section?.trim() ||
+    sectionFromTopic?.id ||
+    DSE_SECTIONS[0].id
+
+  if (dseTopic && !ALL_DSE_TOPICS.includes(dseTopic)) {
+    console.warn(`Unknown DSE topic "${dseTopic}" in ${path}`)
+  }
+
   const tags = (frontmatter.tags ?? '')
     .split(',')
     .map((tag) => tag.trim())
@@ -44,11 +56,10 @@ function parseNote(path: string, raw: string): MathEntry | null {
     id: slug,
     title,
     content,
-    category,
+    forms,
+    dseSectionId,
+    dseTopic: dseTopic || 'Other Typical Topics',
     tags,
-    createdAt: '',
-    updatedAt: '',
-    sourcePath: `content/notes/${slug}.md`,
   }
 }
 
@@ -64,9 +75,10 @@ function parseFrontmatter(block: string): Record<string, string> {
   return result
 }
 
-function normalizeCategory(value?: string): Category {
-  if (value && (CATEGORIES as readonly string[]).includes(value)) {
-    return value as Category
-  }
-  return 'Other'
+function parseForms(value?: string): FormLevel[] {
+  if (!value) return []
+  return value
+    .split(',')
+    .map((part) => part.trim().toUpperCase())
+    .filter((part): part is FormLevel => (FORMS as readonly string[]).includes(part))
 }

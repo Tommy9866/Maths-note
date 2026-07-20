@@ -1,25 +1,14 @@
-export const CATEGORIES = [
-  'Algebra',
-  'Calculus',
-  'Geometry',
-  'Linear Algebra',
-  'Number Theory',
-  'Statistics',
-  'Combinatorics',
-  'Other',
-] as const
-
-export type Category = (typeof CATEGORIES)[number]
+import type { FormLevel } from './taxonomy'
 
 export interface MathEntry {
   id: string
   title: string
   content: string
-  category: Category
+  forms: FormLevel[]
+  dseSectionId: string
+  dseTopic: string
   tags: string[]
-  createdAt: string
-  updatedAt: string
-  sourcePath?: string
 }
 
+export type BrowseMode = 'form' | 'dse'
 export type ViewMode = 'list' | 'view'

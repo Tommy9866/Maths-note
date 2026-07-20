@@ -1,6 +1,8 @@
 ---
 title: Quadratic Formula
-category: Algebra
+form: F4, F5
+section: algebra-functions
+topic: Quadratic Equations in One Unknown (I)
 tags: polynomials, roots
 ---
 
