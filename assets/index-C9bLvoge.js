@@ -331,24 +331,21 @@ subtopic: Decimal Operations
 tags: decimals, arithmetic, MIF-1A-Ch1
 ---
 
-[[diagram:decimal-align|Line up decimal points when adding]]
+For add and subtract: **line up the decimal points**, then calculate.
 
-## Rules
+## Worked example: 82.5 + 7.64
+
+[[demo:decimal-add]]
+
+## Other operations
 
 | Operation | Rule |
 |-----------|------|
-| Add / subtract | Line up the decimal points |
-| Multiply | Count decimal places in both numbers, then put that many in the answer |
-| Divide by a decimal | Move both decimal points the same amount so the divisor becomes a whole number |
-| Mix of x and / | Work from left to right |
+| Add / subtract | Line up decimal points |
+| Multiply | Count decimal places in both numbers, put that many in the answer |
+| Divide by a decimal | Move both points the same amount so the divisor is whole |
 
-## Why multiply works this way
-
-2.43 x 1.5 is the same as (243/100) x (15/10) = 3645/1000.
-
-So the answer has 2 + 1 = 3 decimal places: **3.645**.
-
-## Number examples
+## More examples
 
 | Calculation | Result |
 |-------------|--------|
@@ -356,7 +353,10 @@ So the answer has 2 + 1 = 3 decimal places: **3.645**.
 | 53.1 - 2.48 | 50.62 |
 | 2.43 x 1.5 | 3.645 |
 | 9.35 / 2.5 | 3.74 |
-| 4.6 x 0.5 x 4 | 9.2 x 4 = 36.8 |
+
+## Remember
+
+Write 82.5 as 82.50 if it helps you line up the columns.
 `,"../../content/notes/divisibility-rules.md":`---
 title: Divisibility Rules
 form: F1
@@ -368,38 +368,37 @@ tags: integers, factors, MIF-1A-Ch1
 
 A number is **divisible** by another number if the remainder is 0.
 
-[[diagram:digit-sum|Check divisibility by 3 or 9 using the digit sum]]
+Follow each worked example step by step.
 
-[[diagram:divisibility-digits|Check divisibility by 4 using the last two digits]]
+## Is 468 divisible by 3?
 
-## Rules
+[[demo:div-by-3]]
 
-| Divisible by | Rule |
-|--------------|------|
-| 2 | Units digit is even: 0, 2, 4, 6, or 8 |
-| 3 | Sum of digits is divisible by 3 |
-| 4 | Last **two** digits form a number divisible by 4 |
-| 5 | Units digit is 0 or 5 |
-| 6 | Divisible by both 2 and 3 |
-| 8 | Last **three** digits form a number divisible by 8 |
-| 9 | Sum of digits is divisible by 9 |
-| 10 | Units digit is 0 |
+## Is 612 divisible by 4?
 
-## Why (short idea)
+[[demo:div-by-4]]
 
-- For 2, 5, 10: only the last digit matters.
-- For 4: only the last 2 digits matter.
-- For 8: only the last 3 digits matter.
-- For 3 and 9: use the sum of the digits.
+## Is 288 divisible by 6?
 
-## Number examples
+[[demo:div-by-6]]
 
-| Number | Check | Result |
-|--------|-------|--------|
-| 612 | last two digits 12, and 12 / 4 = 3 | divisible by 4 |
-| 468 | digit sum 4 + 6 + 8 = 18, and 18 / 9 = 2 | divisible by 3 and 9 |
-| 288 | even, and digit sum 18 divisible by 3 | divisible by 6 |
-| 1738 | digit sum 19, not divisible by 3 | not divisible by 3 or 9 |
+## Quick rules (after you understand the demos)
+
+| Divisible by | What to check |
+|--------------|---------------|
+| 2 | Last digit even? |
+| 3 | Digit sum divisible by 3? |
+| 4 | Last 2 digits divisible by 4? |
+| 5 | Ends with 0 or 5? |
+| 6 | Passes both 2 and 3? |
+| 8 | Last 3 digits divisible by 8? |
+| 9 | Digit sum divisible by 9? |
+| 10 | Ends with 0? |
+
+## Remember
+
+- For **4** and **8**, only look at the **end** of the number.
+- For **6**, you need **both** the 2-rule and the 3-rule.
 `,"../../content/notes/equations-of-straight-lines.md":`---
 title: Slope and Intercept
 form: F4
@@ -430,264 +429,6 @@ From $(x_1,y_1)$ to $(x_2,y_2)$, the vertical change is $y_2-y_1$ (rise) and the
 | $(1,2)$, $(4,8)$ | $\\dfrac{8-2}{4-1}=2$ | rises $2$ per $1$ across |
 | $y=3x-1$ | $3$ | intercept $c=-1$ |
 | $(0,5)$, $(5,5)$ | $0$ | horizontal line |
-`,"../../content/notes/f1-basic-computation-decimals.md":`---
-title: "Decimals (F1)"
-form: "F1"
-section: "I"
-topic: "Basic Computation"
-subtopic: "Directed Numbers and the Number Line"
-tags: ["form-1", "decimals"]
----
-
-# Decimals
-
-Line up the **decimal points**, then add or subtract like whole numbers.
-
-## Worked example: 82.5 + 7.64
-
-[[demo:decimal-add]]
-
-## Place value reminder
-
-| Hundreds | Tens | Ones | . | Tenths | Hundredths | Thousandths |
-| --- | --- | --- | --- | --- | --- | --- |
-|  | 8 | 2 | . | 5 | 0 |  |
-|  |  | 7 | . | 6 | 4 |  |
-|  | 9 | 0 | . | 1 | 4 |  |
-
-## Subtract the same way
-
-91.3 − 4.75
-
-Write:
-
-  91.30  
-−  4.75  
-= 86.55
-
-## Remember
-
-- Always line up the decimal points.
-- Fill empty places with 0 if it helps.
-- Put the decimal point in the answer in the same column.
-`,"../../content/notes/f1-basic-computation-divisibility.md":`---
-title: "Divisibility Tests (F1)"
-form: "F1"
-section: "I"
-topic: "Basic Computation"
-subtopic: "Directed Numbers and the Number Line"
-tags: ["form-1", "divisibility", "factors"]
----
-
-# Divisibility Tests
-
-A number is **divisible** by another when the division has **no remainder**.
-
-## Worked example: Is 468 divisible by 3?
-
-[[demo:div-by-3]]
-
-## Worked example: Is 612 divisible by 4?
-
-[[demo:div-by-4]]
-
-## Worked example: Is 288 divisible by 6?
-
-[[demo:div-by-6]]
-
-## Quick check list
-
-| Divide by | What to do | Example |
-| --- | --- | --- |
-| 2 | Last digit even? | 48 ends with 8 → yes |
-| 3 | Digit sum divisible by 3? | 2+4+6=12 → yes |
-| 4 | Last 2 digits divisible by 4? | 32 ÷ 4 = 8 → yes |
-| 5 | Ends with 0 or 5? | 75 ends with 5 → yes |
-| 6 | Passes both 2 and 3 tests? | 288 → yes |
-| 8 | Last 3 digits divisible by 8? | 512 ÷ 8 = 64 → yes |
-| 9 | Digit sum divisible by 9? | 2+7+9=18 → yes |
-| 10 | Ends with 0? | 90 ends with 0 → yes |
-| 11 | Alternating sum divisible by 11? | 3−5+2=0 → yes |
-
-## Remember
-
-- **6** needs **both** even and digit-sum-by-3.
-- For **4** and **8**, only look at the **end** of the number.
-`,"../../content/notes/f1-basic-computation-hcf-lcm.md":`---
-title: "HCF and LCM (F1)"
-form: "F1"
-section: "I"
-topic: "Basic Computation"
-subtopic: "Directed Numbers and the Number Line"
-tags: ["form-1", "hcf", "lcm"]
----
-
-# HCF and LCM
-
-**HCF** = Highest Common Factor (biggest number that divides both)  
-**LCM** = Least Common Multiple (smallest number that both divide into)
-
-## Worked example: HCF of 56 and 84
-
-[[demo:hcf-56-84]]
-
-## Worked example: LCM of 18 and 60
-
-[[demo:lcm-18-60]]
-
-## How to decide
-
-| Want | Use | Keep |
-| --- | --- | --- |
-| HCF | Prime factors of both | Lowest power of each shared prime |
-| LCM | Prime factors of both | Highest power of every prime that appears |
-
-## Extra fact (useful later)
-
-For two whole numbers a and b:
-
-LCM(a, b) x HCF(a, b) = a x b
-
-Check with 18 and 60:
-
-HCF = 6, LCM = 180  
-6 x 180 = 1080  
-18 x 60 = 1080 ✓
-
-## Remember
-
-- HCF looks for what they **share**.
-- LCM looks for what covers **both**.
-`,"../../content/notes/f1-basic-computation-order.md":`---
-title: "Order of Operations (F1)"
-form: "F1"
-section: "I"
-topic: "Basic Computation"
-subtopic: "Directed Numbers and the Number Line"
-tags: ["form-1", "bodmas", "order"]
----
-
-# Order of Operations
-
-Do calculations in this order:
-
-1. Brackets  
-2. Powers  
-3. Multiply / Divide (left to right)  
-4. Add / Subtract (left to right)
-
-## Worked example: Why brackets change the answer
-
-[[demo:brackets-order]]
-
-## Why order matters
-
-Wrong order:
-
-3 + 4 x 2 = 7 x 2 = 14  (incorrect)
-
-Correct order:
-
-3 + 4 x 2 = 3 + 8 = 11
-
-## More practice patterns
-
-| Expression | First do | Then | Answer |
-| --- | --- | --- | --- |
-| 5 + 2 x 3 | 2 x 3 = 6 | 5 + 6 | 11 |
-| (5 + 2) x 3 | 5 + 2 = 7 | 7 x 3 | 21 |
-| 18 ÷ 3 + 4 | 18 ÷ 3 = 6 | 6 + 4 | 10 |
-| 2^3 + 1 | 2^3 = 8 | 8 + 1 | 9 |
-
-## Remember
-
-- Brackets first.
-- Multiply/divide before add/subtract.
-- Same level? Go left to right.
-`,"../../content/notes/f1-basic-computation-powers.md":`---
-title: "Powers and Index Notation (F1)"
-form: "F1"
-section: "I"
-topic: "Basic Computation"
-subtopic: "Directed Numbers and the Number Line"
-tags: ["form-1", "powers", "indices"]
----
-
-# Powers and Index Notation
-
-A **power** is a short way to write repeated multiplication.
-
-## Worked example: Write 6 × 6 × 6 × 6 in index form
-
-[[demo:index-form]]
-
-## Read the parts
-
-| Name | Meaning | In 6^4 |
-| --- | --- | --- |
-| Base | The number being multiplied | 6 |
-| Index (power) | How many times it is multiplied | 4 |
-| Value | The answer after multiplying | 1296 |
-
-So:
-
-6^4 = 6 x 6 x 6 x 6 = 1296
-
-## More examples
-
-| Long form | Index form | Value |
-| --- | --- | --- |
-| 3 x 3 x 3 | 3^3 | 27 |
-| 5 x 5 | 5^2 | 25 |
-| 10 x 10 x 10 x 10 | 10^4 | 10000 |
-| 7 | 7^1 | 7 |
-
-## Remember
-
-- The **index** tells you how many bases to multiply.
-- a^1 = a
-- a^2 means “a squared” (a x a)
-- a^3 means “a cubed” (a x a x a)
-`,"../../content/notes/f1-basic-computation-primes.md":`---
-title: "Prime Numbers and Prime Factorization (F1)"
-form: "F1"
-section: "I"
-topic: "Basic Computation"
-subtopic: "Directed Numbers and the Number Line"
-tags: ["form-1", "primes", "factors"]
----
-
-# Prime Numbers and Prime Factorization
-
-A **prime number** has exactly **two** factors: 1 and itself.
-
-## Worked example: Is 51 prime or composite?
-
-[[demo:prime-check]]
-
-## Worked example: Prime factors of 20
-
-[[demo:prime-factor-20]]
-
-## Common primes to remember
-
-2, 3, 5, 7, 11, 13, 17, 19, 23, 29, ...
-
-## Factor tree idea
-
-Start with the number. Split into factors. Keep splitting until every branch ends in a **prime**.
-
-Example:
-
-20 = 2 x 10  
-10 = 2 x 5  
-So 20 = 2 x 2 x 5 = 2^2 x 5
-
-## Remember
-
-- 1 is **not** prime.
-- 2 is the only even prime.
-- Every whole number greater than 1 is either prime or can be written as a product of primes.
 `,"../../content/notes/forms-of-a-line.md":`---
 title: Forms of a Straight Line
 form: F4, F5
@@ -764,43 +505,31 @@ subtopic: HCF
 tags: factors, HCF, GCD, MIF-1A-Ch1
 ---
 
-The **HCF** (also called GCD) is the largest whole number that divides both numbers exactly.
+The **HCF** is the largest whole number that divides both numbers exactly.
 
-[[diagram:short-division-hcf|HCF of 56 and 84 by short division]]
+## Worked example: HCF of 56 and 84
 
-## Methods
+[[demo:hcf-56-84]]
 
-| Method | Rule |
-|--------|------|
-| Prime factors | For each common prime, take the smaller power |
-| Short division | Divide by common primes; multiply those divisors |
-| With LCM | HCF(a, b) x LCM(a, b) = a x b |
-
-## Why the prime-factor rule works
-
-If two numbers share a prime factor, the HCF can only use the smaller power of that prime. Then multiply those chosen primes together.
-
-## Number examples
-
-### Example 1 — prime factors
+## Another way — prime factors
 
 56 = 2^3 x 7  
 84 = 2^2 x 3 x 7
 
-| Prime | In 56 | In 84 | Take |
-|-------|-------|-------|------|
-| 2 | 2^3 | 2^2 | 2^2 |
-| 3 | — | 3 | — |
-| 7 | 7 | 7 | 7 |
+Keep the **smaller** power of each shared prime:
 
 HCF = 2^2 x 7 = **28**
 
-### Example 2 — check by listing
+## Check by listing
 
 Factors of 56: 1, 2, 4, 7, 8, 14, 28, 56  
 Factors of 84: 1, 2, 3, 4, 6, 7, 12, 14, 21, 28, 42, 84  
 
 Largest common factor = **28**
+
+## Remember
+
+HCF looks for what the two numbers **share**.
 `,"../../content/notes/index-notation-and-powers.md":`---
 title: Index Notation and Powers
 form: F1
@@ -810,30 +539,33 @@ subtopic: Index Notation and Powers
 tags: powers, indices, MIF-1A-Ch1
 ---
 
-[[diagram:index-notation|Rewrite a repeated product in index form]]
+A **power** is a short way to write repeated multiplication.
 
-## Rules
+## Worked example
 
-| Idea | Meaning |
-|------|---------|
-| Index form | 6 x 6 x 6 x 6 = 6^4 |
-| Base | the number being multiplied (here 6) |
-| Index / power | how many times it is multiplied (here 4) |
+[[demo:index-form]]
 
-## Why
+## Names of the parts
 
-6^4 is just a shorter way to write 6 x 6 x 6 x 6. The value is the same.
+| Name | Meaning | In 6^4 |
+|------|---------|--------|
+| Base | number being multiplied | 6 |
+| Index | how many times | 4 |
+| Value | answer after multiplying | 1296 |
 
-## Number examples
+## More examples
 
-| Expression | Index form | Value |
-|------------|------------|-------|
+| Long form | Index form | Value |
+|-----------|------------|-------|
 | 6 x 6 x 6 x 6 | 6^4 | 1296 |
-| 3 x 3 x 3 x 4 x 4 | 3^3 x 4^2 | 27 x 16 = 432 |
-| 5^3 | — | 5 x 5 x 5 = 125 |
+| 3 x 3 x 3 | 3^3 | 27 |
+| 5 x 5 | 5^2 | 25 |
 | 3 x 4^2 | — | 3 x 16 = 48 |
 
-> Do the power first: 3 x 4^2 = 3 x 16 = 48, not (3 x 4)^2.
+## Remember
+
+- Count the repeated number → that count is the index.
+- Do the power first: 3 x 4^2 = 3 x 16 = 48, not (3 x 4)^2.
 `,"../../content/notes/lcm-hcf-product-identity.md":`---
 title: LCM x HCF = a x b
 form: F1, F2, F3
@@ -887,40 +619,28 @@ tags: multiples, LCM, MIF-1A-Ch1
 
 The **LCM** is the smallest whole number that is a multiple of both numbers.
 
-[[diagram:short-division-lcm|LCM of 18 and 60 by short division]]
+## Worked example: LCM of 18 and 60
 
-## Methods
+[[demo:lcm-18-60]]
 
-| Method | Rule |
-|--------|------|
-| Prime factors | For every prime that appears, take the larger power |
-| Short division | Multiply all divisors and the remaining numbers |
-| With HCF | LCM(a, b) = (a x b) / HCF(a, b) |
-
-## Why the prime-factor rule works
-
-A common multiple must include every prime from both numbers. To stay as small as possible, use the larger power of each prime.
-
-## Number examples
-
-### Example 1
+## Another way — prime factors
 
 18 = 2 x 3^2  
 60 = 2^2 x 3 x 5
 
-| Prime | In 18 | In 60 | Take |
-|-------|-------|-------|------|
-| 2 | 2 | 2^2 | 2^2 |
-| 3 | 3^2 | 3 | 3^2 |
-| 5 | — | 5 | 5 |
+Keep the **larger** power of every prime:
 
 LCM = 2^2 x 3^2 x 5 = **180**
 
-### Example 2 — using HCF
+## Using HCF
 
 HCF(18, 60) = 6, so
 
-LCM(18, 60) = (18 x 60) / 6 = 1080 / 6 = **180**
+LCM(18, 60) = (18 x 60) / 6 = **180**
+
+## Remember
+
+LCM looks for the smallest number that covers **both**.
 `,"../../content/notes/mensuration-plane.md":`---
 title: Mensuration — Plane Figures
 form: F1, F2
@@ -1031,30 +751,29 @@ subtopic: Order of Operations
 tags: arithmetic, brackets, MIF-1A-Ch1
 ---
 
-[[diagram:order-brackets|Brackets change the value of the same digits]]
+Always calculate in this order:
 
-## Order
+1. Brackets  
+2. Powers  
+3. Multiply / Divide (left to right)  
+4. Add / Subtract (left to right)
 
-| Step | Do this first |
-|------|----------------|
-| 1 | Brackets ( ) then [ ] then { } |
-| 2 | Powers like 2^3 |
-| 3 | x and / from left to right |
-| 4 | + and - from left to right |
+## Worked example: why brackets matter
 
-## Why
+[[demo:brackets-order]]
 
-Without a fixed order, 5 x 20 - 18 / 2 could mean different things. The order above gives one agreed answer.
-
-## Number examples
+## More examples
 
 | Expression | Working | Value |
 |------------|---------|-------|
 | 5 x 20 - 18 / 2 | 100 - 9 | 91 |
 | 5 x (20 - 18) / 2 | 5 x 2 / 2 | 5 |
-| 5 x (20 - 18 / 2) | 5 x (20 - 9) | 55 |
 | 11 + 5 x 3 | 11 + 15 | 26 |
 | (11 + 5) x 3 | 16 x 3 | 48 |
+
+## Remember
+
+Brackets first. Multiply/divide before add/subtract.
 `,"../../content/notes/percentage-basics.md":`---
 title: Percentage Basics
 form: F1
@@ -1130,32 +849,32 @@ subtopic: Prime and Composite Numbers
 tags: primes, factors, MIF-1A-Ch1
 ---
 
-[[diagram:prime-vs-composite|List factors to decide prime or composite]]
+A **prime** number has exactly **two** factors: 1 and itself.  
+A **composite** number has **more than two** factors.
 
-## Definitions
+## Worked example
 
-| Type | Meaning | Examples |
-|------|---------|----------|
-| Prime | Exactly **two** factors: 1 and itself | 2, 3, 5, 7, 11, 13, 61 |
-| Composite | **More than two** factors | 4, 6, 9, 15, 51 |
-| Neither | Special case | 1 only |
+[[demo:prime-check]]
 
 ## How to decide
 
-List all factors of the number:
+1. List all factors.
+2. Count them.
+3. Decide: 2 factors → prime; more than 2 → composite; only 1 → neither.
 
-- If the list is only 1 and the number itself → prime
-- If the list has more numbers → composite
-- If the number is 1 → neither
-
-## Number examples
+## More examples
 
 | Number | Factors | Conclusion |
 |--------|---------|------------|
-| 51 | 1, 3, 17, 51 | composite (51 = 3 x 17) |
+| 51 | 1, 3, 17, 51 | composite |
 | 61 | 1, 61 | prime |
-| 42 | 1, 2, 3, 6, 7, 14, 21, 42 | composite |
-| 1 | 1 only | neither prime nor composite |
+| 42 | many factors | composite |
+| 1 | 1 only | neither |
+
+## Remember
+
+- 1 is **not** prime.
+- 2 is the only even prime.
 `,"../../content/notes/prime-factorization.md":`---
 title: Prime Factorization
 form: F1
@@ -1165,34 +884,30 @@ subtopic: Prime Factorization
 tags: primes, factors, MIF-1A-Ch1
 ---
 
-**Prime factorization** means writing a number as a product of primes.
+**Prime factorization** means writing a number as a product of primes only.
 
-[[diagram:factor-tree|Factor tree for 36]]
+## Worked example: factorize 20
 
-[[diagram:short-division-prime|Short division for prime factorization of 20]]
-
-## Forms
-
-| Form | Example |
-|------|---------|
-| Product of primes | 36 = 2 x 2 x 3 x 3 |
-| Index form | 36 = 2^2 x 3^2 |
+[[demo:prime-factor-20]]
 
 ## Method
 
-1. Start dividing by the smallest prime 2
+1. Divide by the smallest prime 2 if you can.
 2. Then try 3, 5, 7, ...
-3. Stop when every factor is prime
-4. Write repeats with powers, like 2^2
+3. Stop when every factor is prime.
+4. Write repeats with powers, like 2^2.
 
-## Number examples
+## More examples
 
-| Integer | Working | Prime factorization |
-|---------|---------|---------------------|
+| Integer | Working | Answer |
+|---------|---------|--------|
 | 20 | 20 = 2 x 10 = 2 x 2 x 5 | 2^2 x 5 |
-| 36 | 36 = 2 x 18 = 2 x 2 x 9 = 2 x 2 x 3 x 3 | 2^2 x 3^2 |
-| 60 | 60 = 2 x 30 = 2 x 2 x 15 = 2 x 2 x 3 x 5 | 2^2 x 3 x 5 |
-| 200 | 200 = 2 x 2 x 2 x 5 x 5 | 2^3 x 5^2 |
+| 36 | 36 = 2 x 2 x 3 x 3 | 2^2 x 3^2 |
+| 60 | 60 = 2 x 2 x 3 x 5 | 2^2 x 3 x 5 |
+
+## Remember
+
+Keep dividing until only primes remain.
 `,"../../content/notes/quadratic-formula.md":`---
 title: Quadratic Formula
 form: F4, F5
