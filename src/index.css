@@ -113,3 +113,74 @@ body {
 .math-content th {
   background: rgba(255, 255, 255, 0.04);
 }
+
+.demo-page {
+  position: relative;
+  background:
+    radial-gradient(ellipse 80% 60% at 10% 20%, rgba(99, 102, 241, 0.22), transparent 55%),
+    radial-gradient(ellipse 60% 50% at 90% 80%, rgba(56, 189, 248, 0.1), transparent 50%),
+    linear-gradient(165deg, #0b0d14 0%, #12151f 45%, #0f1117 100%);
+}
+
+.demo-atmosphere {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, black, transparent);
+  animation: demo-grid-drift 28s linear infinite;
+}
+
+.demo-title {
+  animation: demo-fade-up 0.7s ease-out both;
+}
+
+.demo-hero-copy p:first-of-type {
+  animation: demo-fade-up 0.7s ease-out 0.08s both;
+}
+
+.demo-hero-copy > p:nth-of-type(2) {
+  animation: demo-fade-up 0.7s ease-out 0.16s both;
+}
+
+.demo-cta {
+  animation: demo-fade-up 0.7s ease-out 0.24s both;
+}
+
+.demo-formula {
+  animation: demo-fade-up 0.8s ease-out 0.35s both;
+}
+
+@keyframes demo-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes demo-grid-drift {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(48px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-atmosphere,
+  .demo-title,
+  .demo-hero-copy p:first-of-type,
+  .demo-hero-copy > p:nth-of-type(2),
+  .demo-cta,
+  .demo-formula {
+    animation: none;
+  }
+}

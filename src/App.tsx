@@ -1,4 +1,5 @@
 import { useMemo, useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { filterEntries, useEntries } from './hooks/useEntries'
 import { exportEntries, importEntries } from './storage'
 import { CATEGORIES } from './types'
@@ -130,6 +131,13 @@ function App() {
           </div>
 
           <div className="flex shrink-0 items-center gap-2">
+            <Link
+              to="/"
+              className="rounded-lg border border-white/10 px-3 py-2 text-sm text-slate-400 transition hover:bg-white/5 hover:text-slate-200"
+              title="Back to demo page"
+            >
+              Demo
+            </Link>
             <button
               type="button"
               onClick={() => exportEntries(entries)}
