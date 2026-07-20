@@ -7,7 +7,7 @@ subtopic: Plane Figures
 tags: area, perimeter
 ---
 
-[[diagram:circle-area|Circle area and circumference]]
+[[diagram:circle-area|Area uses the radius twice: π x r x r. Circumference is the distance around: 2 x π x r.]]
 
 ## Formula table
 

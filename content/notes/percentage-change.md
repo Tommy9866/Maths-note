@@ -7,7 +7,13 @@ subtopic: Percentage Change
 tags: foundation, increase, decrease
 ---
 
-## Rules
+Percentage change always compares the change with the **original** value.
+
+## Worked example
+
+[[demo:percent-change]]
+
+## Quick rules (plain text)
 
 | Idea | How to do it |
 |------|----------------|
@@ -17,13 +23,7 @@ tags: foundation, increase, decrease
 | After +p% | original x (1 + p/100) |
 | After -p% | original x (1 - p/100) |
 
-[[diagram:percentage-bar|Increase or decrease as a share of the original]]
-
-## Why
-
-We always compare the change with the **starting** value, then turn that fraction into a percentage.
-
-## Number examples
+## More examples
 
 | Situation | Working | Result |
 |-----------|---------|--------|
@@ -31,3 +31,7 @@ We always compare the change with the **starting** value, then turn that fractio
 | 50 → 40 | ((40 - 50) / 50) x 100% | 20% decrease |
 | 200 up by 15% | 200 x 1.15 | 230 |
 | 90 down by 10% | 90 x 0.9 | 81 |
+
+## Remember
+
+Always divide by the **starting** amount, not the new amount.

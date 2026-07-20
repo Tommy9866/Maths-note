@@ -32,13 +32,12 @@ export function Diagram({ id, caption }: { id: string; caption?: string }) {
   }
 
   return (
-    <figure className="diagram-aid my-6 overflow-hidden rounded-2xl border border-[#d7e3dd] bg-white">
-      <div className="flex items-center justify-center bg-gradient-to-b from-[#f3faf7] to-white px-4 py-6">
-        {render()}
-      </div>
+    <figure className="diagram-aid">
+      <div className="diagram-aid-visual">{render()}</div>
       {caption && (
-        <figcaption className="border-t border-[#e4efe9] px-4 py-2.5 text-center text-xs text-[#5b6b7c]">
-          {caption}
+        <figcaption className="diagram-aid-caption">
+          <span className="diagram-aid-label">How to read this</span>
+          <p>{caption}</p>
         </figcaption>
       )}
     </figure>
@@ -244,7 +243,7 @@ function FactorTree() {
         9
       </text>
       <text x="160" y="212" textAnchor="middle" fill="#5b6b7c" fontSize="12">
-        36 = 2² × 3²
+        36 = 2^2 x 3^2
       </text>
     </Frame>
   )
@@ -330,14 +329,14 @@ function IndexNotation() {
       </text>
       <rect x="24" y="48" width="272" height="48" rx="10" fill="#f8fafc" stroke="#d7e3dd" />
       <text x="160" y="78" textAnchor="middle" fill="#18212b" fontSize="16" fontFamily="ui-monospace, monospace">
-        6 × 6 × 6 × 6
+        6 x 6 x 6 x 6
       </text>
       <text x="160" y="118" textAnchor="middle" fill="#0f766e" fontSize="22" fontWeight="700">
         ↓
       </text>
       <rect x="70" y="130" width="180" height="48" rx="10" fill="#ccfbf1" stroke="#0f766e" strokeWidth="2" />
       <text x="160" y="162" textAnchor="middle" fill="#0f766e" fontSize="22" fontWeight="700">
-        6⁴
+        6^4
       </text>
     </Frame>
   )
@@ -418,7 +417,7 @@ function ShortDivisionPrime() {
       </g>
       <line x1="125" y1="55" x2="125" y2="150" stroke="#cbd5e1" strokeWidth="2" />
       <text x="160" y="175" textAnchor="middle" fill="#0f766e" fontSize="16" fontWeight="700">
-        20 = 2 × 2 × 5 = 2² × 5
+        20 = 2 x 2 x 5 = 2^2 x 5
       </text>
       <text x="160" y="196" textAnchor="middle" fill="#5b6b7c" fontSize="12">
         Keep dividing by the smallest prime
@@ -479,7 +478,7 @@ function ShortDivisionHcf() {
         </text>
       </g>
       <text x="160" y="188" textAnchor="middle" fill="#0f766e" fontSize="15" fontWeight="700">
-        HCF = 2 × 2 × 7 = 28
+        HCF = 2 x 2 x 7 = 28
       </text>
       <text x="160" y="208" textAnchor="middle" fill="#5b6b7c" fontSize="12">
         Stop when no common prime remains
@@ -540,7 +539,7 @@ function ShortDivisionLcm() {
         </text>
       </g>
       <text x="160" y="188" textAnchor="middle" fill="#0f766e" fontSize="15" fontWeight="700">
-        LCM = 2 × 3 × 3 × 10 = 180
+        LCM = 2 x 3 x 3 x 10 = 180
       </text>
       <text x="160" y="208" textAnchor="middle" fill="#5b6b7c" fontSize="12">
         Multiply all divisors and remaining factors
@@ -558,15 +557,15 @@ function OrderBrackets() {
       </text>
       <rect x="20" y="44" width="280" height="40" rx="8" fill="#f8fafc" stroke="#d7e3dd" />
       <text x="160" y="70" textAnchor="middle" fill="#18212b" fontSize="14" fontFamily="ui-monospace, monospace">
-        5 × 20 − 18 ÷ 2 = 91
+        5 x 20 - 18 / 2 = 91
       </text>
       <rect x="20" y="96" width="280" height="40" rx="8" fill="#ecfdf5" stroke="#0f766e" />
       <text x="160" y="122" textAnchor="middle" fill="#0f766e" fontSize="14" fontFamily="ui-monospace, monospace" fontWeight="700">
-        5 × (20 − 18) ÷ 2 = 5
+        5 x (20 - 18) / 2 = 5
       </text>
       <rect x="20" y="148" width="280" height="40" rx="8" fill="#e0f2fe" stroke="#0284c7" />
       <text x="160" y="174" textAnchor="middle" fill="#0284c7" fontSize="14" fontFamily="ui-monospace, monospace" fontWeight="700">
-        5 × (20 − 18 ÷ 2) = 55
+        5 x (20 - 18 / 2) = 55
       </text>
     </Frame>
   )

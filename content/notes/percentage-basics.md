@@ -7,7 +7,14 @@ subtopic: Percentage Basics
 tags: foundation, fractions
 ---
 
-## Rules
+“Per cent” means “per hundred”.  
+So 35% means 35 out of 100.
+
+## Worked example
+
+[[demo:percent-of]]
+
+## Quick rules (plain text)
 
 | Idea | How to do it |
 |------|----------------|
@@ -17,13 +24,7 @@ tags: foundation, fractions
 | % to decimal | p / 100 |
 | Find p% of N | (p / 100) x N |
 
-[[diagram:percentage-bar|Part of a whole shown as a percentage]]
-
-## Why
-
-“Per cent” means “per hundred”, so 35% means 35 out of 100, or 0.35 as a decimal.
-
-## Number examples
+## More examples
 
 | Given | Working | Result |
 |-------|---------|--------|
@@ -31,3 +32,7 @@ tags: foundation, fractions
 | 0.26 as % | 0.26 x 100% | 26% |
 | 35% of 80 | 0.35 x 80 | 28 |
 | 12% as decimal | 12 / 100 | 0.12 |
+
+## Remember
+
+To find a percent of a number: change % to a decimal, then multiply.

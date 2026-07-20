@@ -7,7 +7,7 @@ subtopic: Solids
 tags: volume, surface
 ---
 
-[[diagram:cylinder|Cylinder volume]]
+[[diagram:cylinder|Volume of a cylinder = area of the circular base x height = π x r x r x h.]]
 
 ## Formula table
 

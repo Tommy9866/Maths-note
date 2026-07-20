@@ -11,7 +11,20 @@ interface MathContentProps {
   className?: string
 }
 
+/** Avoid turning money like $2000 into broken KaTeX (leave real $...$ math alone). */
+function protectCurrency(text: string): string {
+  return text.replace(/\$(\d[\d,]*(?:\.\d+)?)(?![^$\n]*\$)/g, 'USD $1')
+}
+
 function InlineMarkdown({ text }: { text: string }) {
+  const safe = protectCurrency(text)
+  // Tables stay plain unless they clearly use LaTeX delimiters with a closing $.
+  const hasLatex = /\$\$[\s\S]+?\$\$|\$[^$\n]+\$/.test(safe)
+
+  if (!hasLatex) {
+    return <span>{safe}</span>
+  }
+
   return (
     <ReactMarkdown
       remarkPlugins={[remarkMath]}
@@ -20,7 +33,7 @@ function InlineMarkdown({ text }: { text: string }) {
         p: ({ children }) => <span>{children}</span>,
       }}
     >
-      {text}
+      {safe}
     </ReactMarkdown>
   )
 }
@@ -70,7 +83,7 @@ function renderSegments(segments: ContentSegment[]): ReactNode[] {
         remarkPlugins={[remarkMath]}
         rehypePlugins={[[rehypeKatex, { throwOnError: false, strict: 'ignore' }]]}
       >
-        {segment.text}
+        {protectCurrency(segment.text)}
       </ReactMarkdown>
     )
   })
