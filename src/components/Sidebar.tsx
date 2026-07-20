@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { DSE_SECTIONS, FORMS, getSubtopicsForTopic, sectionLabel } from '../taxonomy'
+import { FEATURED_LESSON, FORMS } from '../taxonomy'
 import type { FormLevel } from '../taxonomy'
 import type { BrowseMode } from '../types'
 
@@ -20,28 +20,7 @@ interface SidebarProps {
   subtopicCounts: Record<string, number>
 }
 
-export function Sidebar({
-  mode,
-  onModeChange,
-  selectedForm,
-  onSelectForm,
-  selectedSectionId,
-  onSelectSection,
-  selectedTopic,
-  onSelectTopic,
-  selectedSubtopic,
-  onSelectSubtopic,
-  formCounts,
-  sectionCounts,
-  topicCounts,
-  subtopicCounts,
-}: SidebarProps) {
-  const activeSection = DSE_SECTIONS.find((section) => section.id === selectedSectionId)
-  const subtopics =
-    selectedTopic !== 'All'
-      ? getSubtopicsForTopic(selectedTopic)
-      : []
-
+export function Sidebar({ selectedForm, formCounts }: SidebarProps) {
   return (
     <aside className="flex h-full flex-col border-r border-[#d7e3dd] bg-white/85 backdrop-blur">
       <div className="border-b border-[#d7e3dd] px-5 py-5">
@@ -53,172 +32,49 @@ export function Sidebar({
             <h1 className="font-display text-lg font-semibold tracking-tight text-[#18212b]">
               MathVault
             </h1>
-            <p className="text-xs text-[#5b6b7c]">Browse & read</p>
+            <p className="text-xs text-[#5b6b7c]">Read notes</p>
           </div>
         </Link>
       </div>
 
-      <div className="border-b border-[#d7e3dd] p-3">
-        <div className="grid grid-cols-2 gap-1 rounded-xl bg-[#eef5f2] p-1">
-          <button
-            type="button"
-            onClick={() => onModeChange('form')}
-            className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
-              mode === 'form'
-                ? 'bg-white text-teal-900 shadow-sm'
-                : 'text-[#5b6b7c] hover:text-[#18212b]'
-            }`}
-          >
-            By Form
-          </button>
-          <button
-            type="button"
-            onClick={() => onModeChange('dse')}
-            className={`rounded-lg px-3 py-2 text-sm font-medium transition ${
-              mode === 'dse'
-                ? 'bg-white text-teal-900 shadow-sm'
-                : 'text-[#5b6b7c] hover:text-[#18212b]'
-            }`}
-          >
-            By DSE
-          </button>
-        </div>
-      </div>
-
       <nav className="flex-1 overflow-y-auto p-3">
-        {mode === 'form' ? (
-          <>
-            <p className="mb-2 px-3 text-xs font-semibold tracking-wider text-[#5b6b7c] uppercase">
-              Form
-            </p>
-            <ul className="space-y-0.5">
-              <NavRow
-                label="All forms"
-                active={selectedForm === 'All'}
-                count={formCounts.All}
-                onClick={() => onSelectForm('All')}
-              />
-              {FORMS.map((form) => (
-                <NavRow
-                  key={form}
-                  label={form}
-                  active={selectedForm === form}
-                  count={formCounts[form]}
-                  onClick={() => onSelectForm(form)}
-                />
-              ))}
-            </ul>
-          </>
-        ) : (
-          <>
-            <p className="mb-2 px-3 text-xs font-semibold tracking-wider text-[#5b6b7c] uppercase">
-              DSE sections
-            </p>
-            <ul className="mb-4 space-y-0.5">
-              <NavRow
-                label="All sections"
-                active={selectedSectionId === 'All'}
-                count={sectionCounts.All ?? 0}
-                onClick={() => onSelectSection('All')}
-              />
-              {DSE_SECTIONS.map((section) => (
-                <NavRow
-                  key={section.id}
-                  label={sectionLabel(section)}
-                  active={selectedSectionId === section.id}
-                  count={sectionCounts[section.id] ?? 0}
-                  onClick={() => onSelectSection(section.id)}
-                />
-              ))}
-            </ul>
+        <p className="mb-2 px-3 text-xs font-semibold tracking-wider text-[#5b6b7c] uppercase">
+          Lessons
+        </p>
+        <ul className="space-y-0.5">
+          <li>
+            <Link
+              to={FEATURED_LESSON.path}
+              className={`flex w-full items-center justify-between rounded-xl px-3 py-2.5 text-left text-sm transition ${
+                selectedForm === 'F1'
+                  ? 'bg-teal-50 font-semibold text-teal-900 ring-1 ring-teal-100'
+                  : 'text-[#243040] hover:bg-[#eef5f2]'
+              }`}
+            >
+              <span>
+                <span className="text-teal-800">{FEATURED_LESSON.form}</span>
+                {' · '}
+                {FEATURED_LESSON.title}
+              </span>
+              <span className="text-xs text-[#5b6b7c]">{formCounts.F1 ?? 0}</span>
+            </Link>
+          </li>
+        </ul>
 
-            {activeSection && (
-              <>
-                <p className="mb-2 px-3 text-xs font-semibold tracking-wider text-[#5b6b7c] uppercase">
-                  Topics
-                </p>
-                <ul className="mb-4 space-y-0.5">
-                  <NavRow
-                    label="All topics in section"
-                    active={selectedTopic === 'All'}
-                    count={sectionCounts[activeSection.id] ?? 0}
-                    onClick={() => onSelectTopic('All')}
-                  />
-                  {activeSection.topics.map((topic) => (
-                    <NavRow
-                      key={topic}
-                      label={topic}
-                      active={selectedTopic === topic}
-                      count={topicCounts[topic] ?? 0}
-                      onClick={() => onSelectTopic(topic)}
-                    />
-                  ))}
-                </ul>
-              </>
-            )}
-
-            {selectedTopic !== 'All' && subtopics.length > 0 && (
-              <>
-                <p className="mb-2 px-3 text-xs font-semibold tracking-wider text-[#5b6b7c] uppercase">
-                  Subtopics
-                </p>
-                <ul className="space-y-0.5">
-                  <NavRow
-                    label="All subtopics"
-                    active={selectedSubtopic === 'All'}
-                    count={topicCounts[selectedTopic] ?? 0}
-                    onClick={() => onSelectSubtopic('All')}
-                  />
-                  {subtopics.map((item) => (
-                    <NavRow
-                      key={item.name}
-                      label={`${item.name} · ${item.typicalForms.join('/')}`}
-                      active={selectedSubtopic === item.name}
-                      count={subtopicCounts[item.name] ?? 0}
-                      onClick={() => onSelectSubtopic(item.name)}
-                    />
-                  ))}
-                </ul>
-              </>
-            )}
-          </>
-        )}
+        <p className="mt-8 mb-2 px-3 text-xs font-semibold tracking-wider text-[#5b6b7c] uppercase">
+          Coming later
+        </p>
+        <ul className="space-y-0.5 px-1">
+          {FORMS.filter((form) => form !== 'F1').map((form) => (
+            <li
+              key={form}
+              className="rounded-xl px-3 py-2 text-sm text-[#94a3b8]"
+            >
+              {form} — not published yet
+            </li>
+          ))}
+        </ul>
       </nav>
     </aside>
-  )
-}
-
-function NavRow({
-  label,
-  active,
-  count,
-  onClick,
-}: {
-  label: string
-  active: boolean
-  count: number
-  onClick: () => void
-}) {
-  return (
-    <li>
-      <button
-        type="button"
-        onClick={onClick}
-        className={`flex w-full items-center justify-between gap-2 rounded-lg px-3 py-2 text-left text-sm transition ${
-          active
-            ? 'bg-teal-50 text-teal-900 ring-1 ring-inset ring-teal-200'
-            : 'text-[#5b6b7c] hover:bg-[#eef5f2] hover:text-[#18212b]'
-        }`}
-      >
-        <span className="leading-snug">{label}</span>
-        <span
-          className={`shrink-0 rounded-full px-2 py-0.5 text-xs ${
-            active ? 'bg-teal-100 text-teal-800' : 'bg-[#eef5f2] text-[#5b6b7c]'
-          }`}
-        >
-          {count}
-        </span>
-      </button>
-    </li>
   )
 }

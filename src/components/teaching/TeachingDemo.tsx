@@ -8,7 +8,7 @@ interface Step {
 interface TeachingDemoProps {
   question: string
   steps: Step[]
-  answer: ReactNode
+  answer: string
   tip?: string
 }
 
@@ -47,18 +47,13 @@ export function TeachingDemo({ question, steps, answer, tip }: TeachingDemoProps
 }
 
 const demos: Record<string, () => ReactNode> = {
+  'div-by-2': DemoDivBy2,
   'div-by-3': DemoDivBy3,
   'div-by-4': DemoDivBy4,
+  'div-by-5': DemoDivBy5,
   'div-by-6': DemoDivBy6,
-  'index-form': DemoIndexForm,
-  'prime-check': DemoPrimeCheck,
-  'prime-factor-20': DemoPrimeFactor20,
-  'hcf-56-84': DemoHcf5684,
-  'lcm-18-60': DemoLcm1860,
-  'brackets-order': DemoBracketsOrder,
-  'decimal-add': DemoDecimalAdd,
-  'percent-of': DemoPercentOf,
-  'percent-change': DemoPercentChange,
+  'div-by-9': DemoDivBy9,
+  'div-by-10': DemoDivBy10,
 }
 
 export function TeachingDemoById({ id }: { id: string }) {
@@ -69,7 +64,6 @@ export function TeachingDemoById({ id }: { id: string }) {
   return <>{render()}</>
 }
 
-/** Plain classroom math line — no LaTeX. */
 function Line({ children }: { children: ReactNode }) {
   return <div className="teach-line">{children}</div>
 }
@@ -96,91 +90,27 @@ function DigitRow({
   )
 }
 
-/** Short division board with fixed columns so numbers stay aligned. */
-function ShortDivision({
-  headers,
-  rows,
-  leftover,
-}: {
-  headers: string[]
-  rows: { divisor: string; values: string[] }[]
-  leftover: string[]
-}) {
+function DemoDivBy2() {
   return (
-    <div className="teach-board" role="table" aria-label="Short division">
-      <div
-        className="teach-board-row teach-board-head"
-        style={{ gridTemplateColumns: `3.5rem repeat(${headers.length}, minmax(3.5rem, 1fr))` }}
-      >
-        <span />
-        {headers.map((header) => (
-          <span key={header}>{header}</span>
-        ))}
-      </div>
-      {rows.map((row) => (
-        <div
-          key={`${row.divisor}-${row.values.join('-')}`}
-          className="teach-board-row"
-          style={{ gridTemplateColumns: `3.5rem repeat(${headers.length}, minmax(3.5rem, 1fr))` }}
-        >
-          <span className="teach-board-div">{row.divisor}</span>
-          {row.values.map((value, index) => (
-            <span key={`${value}-${index}`}>{value}</span>
-          ))}
-        </div>
-      ))}
-      <div
-        className="teach-board-row teach-board-end"
-        style={{ gridTemplateColumns: `3.5rem repeat(${headers.length}, minmax(3.5rem, 1fr))` }}
-      >
-        <span />
-        {leftover.map((value, index) => (
-          <span key={`${value}-${index}`}>{value}</span>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-/** Decimal addition with place-value columns. */
-function DecimalBoard({
-  rows,
-  total,
-}: {
-  rows: { op?: string; digits: string[] }[]
-  total: string[]
-}) {
-  const cols = ['Tens', 'Ones', '.', 'Tenths', 'Hundredths']
-  return (
-    <div className="teach-decimal" role="table" aria-label="Decimal addition">
-      <div className="teach-decimal-row teach-decimal-head">
-        <span />
-        {cols.map((col) => (
-          <span key={col}>{col}</span>
-        ))}
-      </div>
-      {rows.map((row, index) => (
-        <div key={index} className="teach-decimal-row">
-          <span className="teach-decimal-op">{row.op ?? ''}</span>
-          {row.digits.map((digit, digitIndex) => (
-            <span
-              key={digitIndex}
-              className={digit === '.' ? 'teach-decimal-point' : undefined}
-            >
-              {digit}
-            </span>
-          ))}
-        </div>
-      ))}
-      <div className="teach-decimal-row teach-decimal-total">
-        <span />
-        {total.map((digit, index) => (
-          <span key={index} className={digit === '.' ? 'teach-decimal-point' : undefined}>
-            {digit}
-          </span>
-        ))}
-      </div>
-    </div>
+    <TeachingDemo
+      question="Is 374 divisible by 2?"
+      tip="For 2: look only at the last digit. Even last digit means yes."
+      steps={[
+        {
+          title: 'Look at the last digit only',
+          body: <DigitRow digits={['3', '7', '4']} highlight={[2]} />,
+        },
+        {
+          title: 'Ask: is that digit even?',
+          body: <Line>Last digit = 4. Even digits are 0, 2, 4, 6, 8.</Line>,
+        },
+        {
+          title: 'Decide',
+          body: <Line>4 is even → 374 is divisible by 2.</Line>,
+        },
+      ]}
+      answer="Yes. 374 is divisible by 2."
+    />
   )
 }
 
@@ -191,7 +121,7 @@ function DemoDivBy3() {
       tip="For 3: add all digits. If the sum is divisible by 3, the number is too."
       steps={[
         {
-          title: 'Write the digits in boxes',
+          title: 'Write each digit',
           body: <DigitRow digits={['4', '6', '8']} />,
         },
         {
@@ -199,7 +129,7 @@ function DemoDivBy3() {
           body: <Line>4 + 6 + 8 = 18</Line>,
         },
         {
-          title: 'Check if 18 can be divided by 3',
+          title: 'Check the sum with 3',
           body: <Line>18 / 3 = 6 (no remainder)</Line>,
         },
       ]}
@@ -219,12 +149,12 @@ function DemoDivBy4() {
           body: (
             <>
               <DigitRow digits={['6', '1', '2']} highlight={[1, 2]} />
-              <p className="teach-note">Ignore the front digit. Keep only 12.</p>
+              <p className="teach-note">Ignore the front. Keep only 12.</p>
             </>
           ),
         },
         {
-          title: 'Test 12 with 4',
+          title: 'Test those 2 digits with 4',
           body: <Line>12 / 4 = 3 (no remainder)</Line>,
         },
         {
@@ -237,6 +167,30 @@ function DemoDivBy4() {
   )
 }
 
+function DemoDivBy5() {
+  return (
+    <TeachingDemo
+      question="Is 240 divisible by 5?"
+      tip="For 5: the last digit must be 0 or 5."
+      steps={[
+        {
+          title: 'Look at the last digit only',
+          body: <DigitRow digits={['2', '4', '0']} highlight={[2]} />,
+        },
+        {
+          title: 'Check the rule',
+          body: <Line>Last digit = 0. That is allowed for 5.</Line>,
+        },
+        {
+          title: 'Decide',
+          body: <Line>Ends with 0 → divisible by 5.</Line>,
+        },
+      ]}
+      answer="Yes. 240 is divisible by 5."
+    />
+  )
+}
+
 function DemoDivBy6() {
   return (
     <TeachingDemo
@@ -244,7 +198,7 @@ function DemoDivBy6() {
       tip="For 6: the number must pass BOTH the rule for 2 and the rule for 3."
       steps={[
         {
-          title: 'Rule for 2: is the last digit even?',
+          title: 'Rule for 2: last digit even?',
           body: (
             <>
               <DigitRow digits={['2', '8', '8']} highlight={[2]} />
@@ -266,276 +220,50 @@ function DemoDivBy6() {
   )
 }
 
-function DemoIndexForm() {
+function DemoDivBy9() {
   return (
     <TeachingDemo
-      question="Write 6 x 6 x 6 x 6 in index form."
-      tip="Count how many times the same number is multiplied. That count becomes the index."
+      question="Is 729 divisible by 9?"
+      tip="For 9: add the digits. If the sum is divisible by 9, the number is too."
       steps={[
         {
-          title: 'Write the product',
-          body: <Line>6 x 6 x 6 x 6</Line>,
+          title: 'Write each digit',
+          body: <DigitRow digits={['7', '2', '9']} />,
         },
         {
-          title: 'Count the 6s',
-          body: (
-            <div className="teach-count-row">
-              <span>1st 6</span>
-              <span>2nd 6</span>
-              <span>3rd 6</span>
-              <span>4th 6</span>
-            </div>
-          ),
+          title: 'Add the digits',
+          body: <Line>7 + 2 + 9 = 18</Line>,
         },
         {
-          title: 'Write base and index in plain form',
-          body: <Line>base = 6, index = 4 → 6^4</Line>,
+          title: 'Check the sum with 9',
+          body: <Line>18 / 9 = 2 (no remainder)</Line>,
         },
       ]}
-      answer="6 x 6 x 6 x 6 = 6^4"
+      answer="Yes. 729 is divisible by 9."
     />
   )
 }
 
-function DemoPrimeCheck() {
+function DemoDivBy10() {
   return (
     <TeachingDemo
-      question="Is 51 prime or composite?"
-      tip="Prime = only 2 factors (1 and itself). Composite = more than 2 factors. 1 is neither."
+      question="Is 850 divisible by 10?"
+      tip="For 10: the last digit must be 0."
       steps={[
         {
-          title: 'List all factors of 51',
-          body: (
-            <div className="teach-chip-row">
-              <span>1</span>
-              <span className="teach-chip-warn">3</span>
-              <span className="teach-chip-warn">17</span>
-              <span>51</span>
-            </div>
-          ),
+          title: 'Look at the last digit only',
+          body: <DigitRow digits={['8', '5', '0']} highlight={[2]} />,
         },
         {
-          title: 'Count the factors',
-          body: <Line>There are 4 factors (more than 2)</Line>,
+          title: 'Check the rule',
+          body: <Line>Last digit = 0.</Line>,
         },
         {
           title: 'Decide',
-          body: <Line>More than 2 factors → composite. Also 51 = 3 x 17.</Line>,
+          body: <Line>Ends with 0 → divisible by 10.</Line>,
         },
       ]}
-      answer="51 is composite."
-    />
-  )
-}
-
-function DemoPrimeFactor20() {
-  return (
-    <TeachingDemo
-      question="Write 20 as a product of prime factors."
-      tip="Keep dividing by the smallest prime until only primes remain. Write the answer as 2^2 x 5."
-      steps={[
-        {
-          title: 'Short division board',
-          body: (
-            <ShortDivision
-              headers={['20']}
-              rows={[
-                { divisor: '2', values: ['20'] },
-                { divisor: '2', values: ['10'] },
-              ]}
-              leftover={['5']}
-            />
-          ),
-        },
-        {
-          title: 'Read the left column and the last number',
-          body: <Line>primes used: 2, 2, and 5</Line>,
-        },
-        {
-          title: 'Write the product in plain form',
-          body: <Line>20 = 2 x 2 x 5 = 2^2 x 5</Line>,
-        },
-      ]}
-      answer="20 = 2^2 x 5"
-    />
-  )
-}
-
-function DemoHcf5684() {
-  return (
-    <TeachingDemo
-      question="Find the HCF of 56 and 84."
-      tip="HCF = highest common factor. Multiply the common primes in the left column."
-      steps={[
-        {
-          title: 'Short division — keep dividing both numbers by common primes',
-          body: (
-            <ShortDivision
-              headers={['56', '84']}
-              rows={[
-                { divisor: '2', values: ['56', '84'] },
-                { divisor: '2', values: ['28', '42'] },
-                { divisor: '7', values: ['14', '21'] },
-              ]}
-              leftover={['2', '3']}
-            />
-          ),
-        },
-        {
-          title: 'Stop when the bottom numbers share no common prime',
-          body: (
-            <>
-              <p className="teach-note">Bottom: 2 and 3 — no common prime left.</p>
-              <Line>Common divisors on the left: 2, 2, 7</Line>
-            </>
-          ),
-        },
-        {
-          title: 'Multiply the left-column primes',
-          body: <Line>HCF = 2 x 2 x 7 = 28</Line>,
-        },
-      ]}
-      answer="HCF(56, 84) = 28"
-    />
-  )
-}
-
-function DemoLcm1860() {
-  return (
-    <TeachingDemo
-      question="Find the LCM of 18 and 60."
-      tip="LCM = least common multiple. Multiply ALL left-column divisors and the leftover numbers."
-      steps={[
-        {
-          title: 'Short division board',
-          body: (
-            <ShortDivision
-              headers={['18', '60']}
-              rows={[
-                { divisor: '2', values: ['18', '60'] },
-                { divisor: '3', values: ['9', '30'] },
-                { divisor: '3', values: ['3', '10'] },
-              ]}
-              leftover={['1', '10']}
-            />
-          ),
-        },
-        {
-          title: 'Collect every number used',
-          body: <Line>Left column: 2, 3, 3. Leftover: 1 and 10.</Line>,
-        },
-        {
-          title: 'Multiply them',
-          body: <Line>LCM = 2 x 3 x 3 x 10 = 180</Line>,
-        },
-      ]}
-      answer="LCM(18, 60) = 180"
-    />
-  )
-}
-
-function DemoBracketsOrder() {
-  return (
-    <TeachingDemo
-      question="Why do brackets change the answer?"
-      tip="Always do brackets first. Same numbers can give different answers if brackets move."
-      steps={[
-        {
-          title: 'No brackets',
-          body: <Line>5 x 20 - 18 / 2 = 100 - 9 = 91</Line>,
-        },
-        {
-          title: 'Bracket around the subtraction',
-          body: <Line>5 x (20 - 18) / 2 = 5 x 2 / 2 = 5</Line>,
-        },
-        {
-          title: 'Bracket around a mixed part',
-          body: <Line>5 x (20 - 18 / 2) = 5 x (20 - 9) = 55</Line>,
-        },
-      ]}
-      answer="Brackets tell you which part to do first."
-    />
-  )
-}
-
-function DemoDecimalAdd() {
-  return (
-    <TeachingDemo
-      question="Calculate 82.5 + 7.64"
-      tip="Line up the decimal points first. Write 82.5 as 82.50 so every column has a digit."
-      steps={[
-        {
-          title: 'Line up place-value columns',
-          body: (
-            <DecimalBoard
-              rows={[
-                { digits: ['8', '2', '.', '5', '0'] },
-                { op: '+', digits: ['', '7', '.', '6', '4'] },
-              ]}
-              total={['9', '0', '.', '1', '4']}
-            />
-          ),
-        },
-        {
-          title: 'Add each column from the right',
-          body: (
-            <Line>0+4=4, then 5+6=11 (write 1, carry 1), then 2+7+1=10, then 8+1=9</Line>
-          ),
-        },
-        {
-          title: 'Keep the decimal point in the same column',
-          body: <Line>Answer columns stay under Tenths / Hundredths.</Line>,
-        },
-      ]}
-      answer="82.5 + 7.64 = 90.14"
-    />
-  )
-}
-
-function DemoPercentOf() {
-  return (
-    <TeachingDemo
-      question="Find 35% of 80."
-      tip="p% of N means (p / 100) x N. Or think: 35 out of every 100."
-      steps={[
-        {
-          title: 'Change percent to a decimal',
-          body: <Line>35% = 35 / 100 = 0.35</Line>,
-        },
-        {
-          title: 'Multiply by the whole',
-          body: <Line>0.35 x 80</Line>,
-        },
-        {
-          title: 'Calculate',
-          body: <Line>0.35 x 80 = 28</Line>,
-        },
-      ]}
-      answer="35% of 80 = 28"
-    />
-  )
-}
-
-function DemoPercentChange() {
-  return (
-    <TeachingDemo
-      question="A price rises from 80 to 100. What is the percentage increase?"
-      tip="Always compare the change with the ORIGINAL value."
-      steps={[
-        {
-          title: 'Find the change',
-          body: <Line>100 - 80 = 20</Line>,
-        },
-        {
-          title: 'Divide by the original',
-          body: <Line>20 / 80 = 0.25</Line>,
-        },
-        {
-          title: 'Change to a percent',
-          body: <Line>0.25 x 100% = 25%</Line>,
-        },
-      ]}
-      answer="25% increase"
+      answer="Yes. 850 is divisible by 10."
     />
   )
 }

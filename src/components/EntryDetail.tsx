@@ -1,8 +1,6 @@
-import { DSE_SECTIONS, sectionLabel } from '../taxonomy'
 import type { FormLevel } from '../taxonomy'
 import type { MathEntry } from '../types'
 import { MathContent } from './MathContent'
-import { FormBadge, SubtopicBadge, TopicBadge } from './TopicBadges'
 
 interface EntryDetailProps {
   entry: MathEntry
@@ -14,52 +12,22 @@ interface EntryDetailProps {
   activeSubtopic: string | 'All'
 }
 
-export function EntryDetail({
-  entry,
-  onFilterForm,
-  onFilterTopic,
-  onFilterSubtopic,
-  activeForm,
-  activeTopic,
-  activeSubtopic,
-}: EntryDetailProps) {
-  const section = DSE_SECTIONS.find((item) => item.id === entry.dseSectionId)
-
+export function EntryDetail({ entry }: EntryDetailProps) {
   return (
     <article className="flex h-full flex-col">
-      <header className="border-b border-[#d7e3dd] bg-white/60 px-8 py-6 backdrop-blur">
-        <div className="mb-4 flex flex-wrap items-center gap-2">
-          {entry.forms.map((form) => (
-            <FormBadge
-              key={form}
-              form={form}
-              active={activeForm === form}
-              onClick={onFilterForm}
-            />
-          ))}
-          <TopicBadge
-            topic={entry.dseTopic}
-            active={activeTopic === entry.dseTopic && activeSubtopic === 'All'}
-            onClick={onFilterTopic}
-          />
-          <SubtopicBadge
-            subtopic={entry.subtopic}
-            active={activeSubtopic === entry.subtopic}
-            onClick={(subtopic) => onFilterSubtopic(entry.dseTopic, subtopic)}
-          />
-        </div>
-        <h2 className="font-display text-3xl font-semibold tracking-tight text-[#18212b]">
+      <header className="border-b border-[#d7e3dd] bg-white/60 px-6 py-6 backdrop-blur sm:px-10">
+        <p className="text-sm font-semibold text-teal-800">
+          {entry.forms.join(', ')} · {entry.subtopic}
+        </p>
+        <h2 className="mt-2 font-display text-3xl font-semibold tracking-tight text-[#18212b]">
           {entry.title}
         </h2>
-        {section && (
-          <p className="mt-2 text-sm text-[#5b6b7c]">{sectionLabel(section)}</p>
-        )}
-        <p className="mt-3 text-xs text-[#5b6b7c]">
-          Click a form, topic, or subtopic tag to show only that knowledge.
+        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-[#5b6b7c]">
+          Read each worked example in order. Tables at the end are only a quick reminder.
         </p>
       </header>
 
-      <div className="flex-1 overflow-y-auto px-8 py-6">
+      <div className="mx-auto w-full max-w-3xl flex-1 overflow-y-auto px-6 py-8 sm:px-10">
         <MathContent content={entry.content} />
       </div>
     </article>
