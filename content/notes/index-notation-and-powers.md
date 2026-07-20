@@ -7,27 +7,30 @@ subtopic: Index Notation and Powers
 tags: powers, indices, MIF-1A-Ch1
 ---
 
-[[diagram:index-notation|Rewrite a repeated product in index form]]
+A **power** is a short way to write repeated multiplication.
 
-## Rules
+## Worked example
 
-| Idea | Meaning |
-|------|---------|
-| Index form | 6 x 6 x 6 x 6 = 6^4 |
-| Base | the number being multiplied (here 6) |
-| Index / power | how many times it is multiplied (here 4) |
+[[demo:index-form]]
 
-## Why
+## Names of the parts
 
-6^4 is just a shorter way to write 6 x 6 x 6 x 6. The value is the same.
+| Name | Meaning | In 6^4 |
+|------|---------|--------|
+| Base | number being multiplied | 6 |
+| Index | how many times | 4 |
+| Value | answer after multiplying | 1296 |
 
-## Number examples
+## More examples
 
-| Expression | Index form | Value |
-|------------|------------|-------|
+| Long form | Index form | Value |
+|-----------|------------|-------|
 | 6 x 6 x 6 x 6 | 6^4 | 1296 |
-| 3 x 3 x 3 x 4 x 4 | 3^3 x 4^2 | 27 x 16 = 432 |
-| 5^3 | — | 5 x 5 x 5 = 125 |
+| 3 x 3 x 3 | 3^3 | 27 |
+| 5 x 5 | 5^2 | 25 |
 | 3 x 4^2 | — | 3 x 16 = 48 |
 
-> Do the power first: 3 x 4^2 = 3 x 16 = 48, not (3 x 4)^2.
+## Remember
+
+- Count the repeated number → that count is the index.
+- Do the power first: 3 x 4^2 = 3 x 16 = 48, not (3 x 4)^2.

@@ -7,27 +7,26 @@ subtopic: Order of Operations
 tags: arithmetic, brackets, MIF-1A-Ch1
 ---
 
-[[diagram:order-brackets|Brackets change the value of the same digits]]
+Always calculate in this order:
 
-## Order
+1. Brackets  
+2. Powers  
+3. Multiply / Divide (left to right)  
+4. Add / Subtract (left to right)
 
-| Step | Do this first |
-|------|----------------|
-| 1 | Brackets ( ) then [ ] then { } |
-| 2 | Powers like 2^3 |
-| 3 | x and / from left to right |
-| 4 | + and - from left to right |
+## Worked example: why brackets matter
 
-## Why
+[[demo:brackets-order]]
 
-Without a fixed order, 5 x 20 - 18 / 2 could mean different things. The order above gives one agreed answer.
-
-## Number examples
+## More examples
 
 | Expression | Working | Value |
 |------------|---------|-------|
 | 5 x 20 - 18 / 2 | 100 - 9 | 91 |
 | 5 x (20 - 18) / 2 | 5 x 2 / 2 | 5 |
-| 5 x (20 - 18 / 2) | 5 x (20 - 9) | 55 |
 | 11 + 5 x 3 | 11 + 15 | 26 |
 | (11 + 5) x 3 | 16 x 3 | 48 |
+
+## Remember
+
+Brackets first. Multiply/divide before add/subtract.
