@@ -1,3 +1,4 @@
+import type { FormLevel } from '../taxonomy'
 import type { MathEntry } from '../types'
 import { FormBadge, TopicBadge } from './TopicBadges'
 
@@ -5,9 +6,21 @@ interface EntryListProps {
   entries: MathEntry[]
   selectedId: string | null
   onSelect: (id: string) => void
+  onFilterForm: (form: FormLevel) => void
+  onFilterTopic: (topic: string) => void
+  activeForm: FormLevel | 'All'
+  activeTopic: string | 'All'
 }
 
-export function EntryList({ entries, selectedId, onSelect }: EntryListProps) {
+export function EntryList({
+  entries,
+  selectedId,
+  onSelect,
+  onFilterForm,
+  onFilterTopic,
+  activeForm,
+  activeTopic,
+}: EntryListProps) {
   if (entries.length === 0) {
     return (
       <div className="flex flex-1 flex-col items-center justify-center px-6 py-16 text-center">
@@ -16,7 +29,7 @@ export function EntryList({ entries, selectedId, onSelect }: EntryListProps) {
         </div>
         <h3 className="font-display text-base font-semibold text-[#18212b]">No notes here</h3>
         <p className="mt-1 max-w-xs text-sm text-[#5b6b7c]">
-          Try another form, DSE topic, or search term.
+          Try another form, DSE topic, or clear the filter.
         </p>
       </div>
     )
@@ -28,27 +41,36 @@ export function EntryList({ entries, selectedId, onSelect }: EntryListProps) {
         const active = entry.id === selectedId
         return (
           <li key={entry.id}>
-            <button
-              type="button"
-              onClick={() => onSelect(entry.id)}
-              className={`w-full px-5 py-4 text-left transition ${
+            <div
+              className={`w-full px-5 py-4 transition ${
                 active ? 'bg-teal-50/80' : 'hover:bg-white/70'
               }`}
             >
-              <h3
-                className={`mb-2 font-display leading-snug font-semibold ${
-                  active ? 'text-teal-950' : 'text-[#18212b]'
-                }`}
-              >
-                {entry.title}
-              </h3>
+              <button type="button" onClick={() => onSelect(entry.id)} className="w-full text-left">
+                <h3
+                  className={`mb-2 font-display leading-snug font-semibold ${
+                    active ? 'text-teal-950' : 'text-[#18212b]'
+                  }`}
+                >
+                  {entry.title}
+                </h3>
+              </button>
               <div className="mb-2 flex flex-wrap gap-1.5">
                 {entry.forms.map((form) => (
-                  <FormBadge key={form} form={form} />
+                  <FormBadge
+                    key={form}
+                    form={form}
+                    active={activeForm === form}
+                    onClick={onFilterForm}
+                  />
                 ))}
               </div>
-              <TopicBadge topic={entry.dseTopic} />
-            </button>
+              <TopicBadge
+                topic={entry.dseTopic}
+                active={activeTopic === entry.dseTopic}
+                onClick={onFilterTopic}
+              />
+            </div>
           </li>
         )
       })}

@@ -8,6 +8,8 @@ tags: functions, graphs
 
 A function $f$ maps each input $x$ in the domain to exactly one output $f(x)$.
 
+[[diagram:function-curve|Each x maps to one point (x, f(x)) on the graph]]
+
 ## Common forms
 
 - Linear: $f(x) = mx + c$

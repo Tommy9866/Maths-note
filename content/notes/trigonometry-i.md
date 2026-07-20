@@ -8,6 +8,8 @@ tags: trig, triangles
 
 In a right-angled triangle:
 
+[[diagram:right-triangle|Opposite, adjacent, and hypotenuse relative to angle θ]]
+
 $$\sin \theta = \frac{\text{opposite}}{\text{hypotenuse}},\quad
 \cos \theta = \frac{\text{adjacent}}{\text{hypotenuse}},\quad
 \tan \theta = \frac{\text{opposite}}{\text{adjacent}}$$

@@ -1,13 +1,14 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import { filterEntries, useEntries } from './hooks/useEntries'
-import { DSE_SECTIONS, FORMS } from './taxonomy'
-import type { FormLevel } from './taxonomy'
-import type { BrowseMode, ViewMode } from './types'
+import { ActiveFilters } from './components/ActiveFilters'
 import { EntryDetail } from './components/EntryDetail'
 import { EntryList } from './components/EntryList'
 import { SearchBar } from './components/SearchBar'
 import { Sidebar } from './components/Sidebar'
+import { filterEntries, useEntries } from './hooks/useEntries'
+import { DSE_SECTIONS, FORMS, findDseSectionByTopic, sectionLabel } from './taxonomy'
+import type { FormLevel } from './taxonomy'
+import type { BrowseMode, ViewMode } from './types'
 
 function App() {
   const { entries } = useEntries()
@@ -69,27 +70,46 @@ function App() {
     return result
   }, [entries])
 
+  const activeSection = DSE_SECTIONS.find((section) => section.id === selectedSectionId)
+
   const updateParams = (next: {
     group?: BrowseMode
     form?: FormLevel | 'All'
     section?: string
     topic?: string
   }) => {
-    const params = new URLSearchParams(searchParams)
-    if (next.group) params.set('group', next.group)
-    if (next.form !== undefined) {
-      if (next.form === 'All') params.delete('form')
-      else params.set('form', next.form)
+    const params = new URLSearchParams()
+    const group = next.group ?? mode
+    params.set('group', group)
+
+    if (group === 'form') {
+      const form = next.form ?? selectedForm
+      if (form !== 'All') params.set('form', form)
+    } else {
+      const section = next.section ?? selectedSectionId
+      const topic = next.topic ?? selectedTopic
+      if (section !== 'All') params.set('section', section)
+      if (topic !== 'All') params.set('topic', topic)
     }
-    if (next.section !== undefined) {
-      if (next.section === 'All') params.delete('section')
-      else params.set('section', next.section)
-    }
-    if (next.topic !== undefined) {
-      if (next.topic === 'All') params.delete('topic')
-      else params.set('topic', next.topic)
-    }
+
     setSearchParams(params)
+  }
+
+  const filterByForm = (form: FormLevel) => {
+    updateParams({ group: 'form', form })
+  }
+
+  const filterByTopic = (topic: string) => {
+    const section = findDseSectionByTopic(topic)
+    updateParams({
+      group: 'dse',
+      section: section?.id ?? 'All',
+      topic,
+    })
+  }
+
+  const clearFilters = () => {
+    setSearchParams(new URLSearchParams({ group: mode }))
   }
 
   return (
@@ -179,6 +199,17 @@ function App() {
           </Link>
         </header>
 
+        <ActiveFilters
+          mode={mode}
+          form={selectedForm}
+          sectionLabel={
+            activeSection && selectedSectionId !== 'All' ? sectionLabel(activeSection) : undefined
+          }
+          topic={selectedTopic}
+          resultCount={filteredEntries.length}
+          onClear={clearFilters}
+        />
+
         <div className="flex min-h-0 flex-1">
           <section
             className={`w-full shrink-0 overflow-y-auto border-r border-[#d7e3dd] bg-white/40 md:w-80 lg:w-96 ${
@@ -192,12 +223,22 @@ function App() {
                 setSelectedId(id)
                 setViewMode('view')
               }}
+              onFilterForm={filterByForm}
+              onFilterTopic={filterByTopic}
+              activeForm={selectedForm}
+              activeTopic={selectedTopic}
             />
           </section>
 
           <main className="min-w-0 flex-1 overflow-y-auto">
             {viewMode === 'view' && selectedEntry ? (
-              <EntryDetail entry={selectedEntry} />
+              <EntryDetail
+                entry={selectedEntry}
+                onFilterForm={filterByForm}
+                onFilterTopic={filterByTopic}
+                activeForm={selectedForm}
+                activeTopic={selectedTopic}
+              />
             ) : (
               <EmptyState count={filteredEntries.length} mode={mode} />
             )}
@@ -219,10 +260,10 @@ function EmptyState({ count, mode }: { count: number; mode: BrowseMode }) {
       </h2>
       <p className="mt-2 max-w-md text-sm leading-relaxed text-[#5b6b7c]">
         {count > 0
-          ? mode === 'form'
-            ? 'Pick a note from the list, or switch form level in the sidebar.'
-            : 'Pick a note from the list, or choose another DSE section or topic.'
-          : 'Try a different form, section, or topic.'}
+          ? 'Pick a note, or click a form / topic tag to narrow the list.'
+          : mode === 'form'
+            ? 'No notes for this form. Clear the filter or pick another form.'
+            : 'No notes for this topic. Clear the filter or pick another topic.'}
       </p>
     </div>
   )

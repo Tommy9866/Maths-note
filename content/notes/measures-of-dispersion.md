@@ -8,6 +8,8 @@ tags: statistics, spread
 
 Common measures of spread for a data set:
 
+[[diagram:box-plot|Box-and-whisker plot showing min, Q1, median, Q3, max]]
+
 - Range $= \text{max} - \text{min}$
 - Interquartile range $= Q_3 - Q_1$
 - Variance and standard deviation

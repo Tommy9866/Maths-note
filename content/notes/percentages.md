@@ -10,6 +10,8 @@ A percentage is a fraction of $100$:
 
 $$p\% = \frac{p}{100}$$
 
+[[diagram:percentage-bar|Part of a whole shown as a percentage]]
+
 ## Useful conversions
 
 - Fraction → percentage: multiply by $100\%$
